@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #750b2b;
+  --breakpoint-xs: 375px;
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Aurora", sans-serif;
+}
+
+@layer base {
+
+  /* Lato Regular (weight 400, normal style) */
+  @font-face {
+    font-family: "Lato";
+    src: url("/fonts/Lato-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Lato Italic (weight 400, italic style) */
+  @font-face {
+    font-family: "Lato";
+    src: url("/fonts/Lato-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* Lato Bold (weight 700, normal style) */
+  @font-face {
+    font-family: "Lato";
+    src: url("/fonts/Lato-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  /* Lato Bold Italic (weight 700, italic style) */
+  @font-face {
+    font-family: "Lato";
+    src: url("/fonts/Lato-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  /* Lato Black (weight 900, normal style) */
+  @font-face {
+    font-family: "Lato";
+    src: url("/fonts/Lato-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  /* Lato Black Italic (weight 900, italic style) */
+  @font-face {
+    font-family: "Lato";
+    src: url("/fonts/Lato-BlackItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  /* Aurora Display (weight 400, normal style) */
+  @font-face {
+    font-family: "Aurora";
+    src: url("/fonts/aurora.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+
+@layer utilities {
+  body {
+    @apply font-sans
+  }
+}
+
+input:focus {
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+}

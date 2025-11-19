@@ -1,0 +1,12 @@
+{
+  "projectName": "website",
+  "mode": "file-router",
+  "typescript": true,
+  "tailwind": false,
+  "packageManager": "pnpm",
+  "git": true,
+  "addOnOptions": {},
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": []
+}

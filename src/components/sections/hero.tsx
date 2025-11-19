@@ -40,7 +40,7 @@ export function HeroSection() {
 
         <div className="w-full flex flex-col lg:flex-row justify-center gap-[87px] lg:gap-0 lg:justify-between items:center lg:items-end">
           <p className="text-[12px] lg:text-[16px] max-w-[700px] uppercase text-center lg:text-left">
-            Back for its 3rd Edition,we are gathering the city’s brightest minds and boldest voices.
+            Back for its 5th Edition,we are gathering the city’s brightest minds and boldest voices.
             No delays,just pure passion. Can you tell your story before the timer hits zero?
           </p>
           <Logos />

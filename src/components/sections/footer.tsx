@@ -15,18 +15,18 @@ export function FooterSection() {
           <div className="w-[250px] h-px bg-black lg:hidden" />
 
             <div className="flex flex-col gap-2 lg:gap-4">
-            <p className="text-[18px] lg:text-[40px] font-display text-black">VISION & INOVATION CLUB</p>
+            <p className="text-[18px] lg:text-[40px] font-display text-black">VISION & INNOVATION CLUB</p>
             <p className="text-[10px] lg:text-[20px] text-black lg:max-w-[650px]">
               {`
 A scientific club founded in 2014 at the National Polytechnic School of Algiers under the supervision of the scientific and cultural association “EL–MAARIFA”, which aims to foster creativity, communication, and innovation among students.
              `}
             </p>
             <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 mt-4 lg:mt-10">
-              <p className="uppercase text-[12px] lg:text-[22px]"> <span className="font-display text-[20px] lg:text-[35px] mr-2">15+</span> Major Events*</p>
+              <p className="uppercase text-[12px] lg:text-[22px]"> <span className="font-display text-[20px] lg:text-[35px] mr-2">15+</span> Major Events</p>
               <div className="w-[100px] h-px bg-black lg:hidden" />
-              <p className="uppercase text-[12px] lg:text-[22px]"> <span className="font-display text-[20px] lg:text-[35px] mr-2">200+</span> Active Members*</p>
+              <p className="uppercase text-[12px] lg:text-[22px]"> <span className="font-display text-[20px] lg:text-[35px] mr-2">200+</span> Active Members</p>
               <div className="w-[100px] h-px bg-black lg:hidden" />
-              <p className="uppercase text-[12px] lg:text-[22px]"> <span className="font-display text-[20px] lg:text-[35px] mr-2">800+</span> Alumni*</p>
+              <p className="uppercase text-[12px] lg:text-[22px]"> <span className="font-display text-[20px] lg:text-[35px] mr-2">800+</span> Alumni</p>
             </div>
           </div>
 

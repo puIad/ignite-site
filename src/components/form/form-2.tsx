@@ -29,19 +29,21 @@ export function FormTwo() {
   const setStep = formStore((state) => state.setStep);
   const lang = formStore((state) => state.lang);
 
+  const partTwo = formStore((s) => s.partTwo);
+
   const [customErrors, setCustomErrors] = useState<Map<string, string>>(new Map())
 
   const form = useForm({
     defaultValues: {
-      knowledge_about_ignite: "",
-      motivation: "",
-      how_heard: "",
-      has_public_speaking_experience: "yes",
-      public_speaking_experience: "",
-      presentation_language: "",
-      talk_category: "",
-      presentation_theme: "",
-      theme_elaboration: "",
+      knowledge_about_ignite: partTwo.knowledge_about_ignite ?? "",
+      motivation: partTwo.motivation ?? "",
+      how_heard: partTwo.how_heard ?? "",
+      has_public_speaking_experience: partTwo.has_public_speaking_experience ?? "yes",
+      public_speaking_experience: partTwo.public_speaking_experience ?? "",
+      presentation_language: partTwo.presentation_language ?? "",
+      talk_category: partTwo.talk_category ?? "",
+      presentation_theme: partTwo.presentation_theme ?? "",
+      theme_elaboration: partTwo.theme_elaboration ?? "",
     },
 
     onSubmit: async ({ value }) => {
@@ -79,12 +81,12 @@ export function FormTwo() {
 
   useEffect(() => {
     form.validateAllFields("submit");
-  });
+  }, []);
 
   return (
     <div className="flex flex-col justify-center">
       <div className="flex justify-start gap-2 mb-5 lg:mb-10">
-        <p className="text-[24px] lg:text-[65px] text-primary font-display">
+        <p className={`text-[24px] lg:text-[65px] text-primary font-display ${lang === 'AR' ? 'font-splart' : ''}`}>
           {step}
         </p>
         <p className="text-[14px] lg:text-[35px] text-primary">2/3</p>
@@ -99,7 +101,7 @@ export function FormTwo() {
         className="flex justify-center  lg:justify-start lg:w-[850px]"
       >
         <div className="h-full flex flex-col justify-between">
-          <div className="flex flex-col items-start lg:items-start gap-x-20  gap-y-3 lg:gap-y-4 lg:h-[920px] lg:w-[850px] ">
+          <div className="flex flex-col items-start lg:items-start gap-x-20  gap-y-3 lg:gap-y-4 lg:min-h-[920px] lg:w-[850px] ">
             <form.Field
               name="knowledge_about_ignite"
               validators={{

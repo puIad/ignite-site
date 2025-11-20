@@ -5,7 +5,7 @@ import { LangChoser } from "../form/lang-choser";
 import { formStore, uiTexts } from "../form/schema";
 import { Logos } from "../ui/logos";
 import { TimeLocationTag } from "../ui/time-location-tag";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export function SpeakersRegistration() {
   const lang = formStore((state) => state.lang);
@@ -44,31 +44,57 @@ export function SpeakersRegistration() {
       wrapper.classList.remove("lang-fr");
     }
   }, [step, lang]);
-  // when the step changes (to a form step), focus and smoothly scroll to the first input
+  // when the step changes, smoothly align and focus the relevant control
+  // NOTE: track previous step to avoid running on initial mount (which caused
+  // the language chooser to be focused by default).
+  const prevStepRef = useRef<number | null>(null);
   useEffect(() => {
     const wrapper = document.getElementById("speakers-registration-form");
     if (!wrapper) return;
-    // only focus when we are on a form step (1..3)
-    if (step === 0) return;
 
-    // find the first focusable form control (input/textarea/select)
-    const selector = 'input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), select:not([disabled])';
-    const first = wrapper.querySelector(selector) as HTMLElement | null;
-    if (!first) return;
+    const prev = prevStepRef.current;
 
-    // Try to focus without scrolling, then smooth-scroll into view for better UX
-    try {
-      // modern browsers support preventScroll
-      (first as HTMLElement).focus({ preventScroll: true } as any);
-    } catch (e) {
-      (first as HTMLElement).focus();
+    // If we transitioned to step 0 from a non-zero step, focus the chooser.
+    if (step === 0 && prev !== null && prev !== 0) {
+      const chooser = document.getElementById("lang-choser");
+      if (!chooser) return;
+      const firstButton = chooser.querySelector("button") as HTMLElement | null;
+      try {
+        if (firstButton) firstButton.focus({ preventScroll: true } as any);
+      } catch (e) {
+        if (firstButton) firstButton.focus();
+      }
+      try {
+        chooser.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (e) {
+        chooser.scrollIntoView();
+      }
+      prevStepRef.current = step;
+      return;
     }
-    try {
-      (first as HTMLElement).scrollIntoView({ behavior: "smooth", block: "center" });
-    } catch (e) {
-      // fallback: instant scroll
-      (first as HTMLElement).scrollIntoView();
+
+    // Only run the form-step focus/scroll when we are on a form step (1..3)
+    if (step > 0) {
+      const selector = 'input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), select:not([disabled])';
+      const first = wrapper.querySelector(selector) as HTMLElement | null;
+      if (!first) {
+        prevStepRef.current = step;
+        return;
+      }
+
+      try {
+        (first as HTMLElement).focus({ preventScroll: true } as any);
+      } catch (e) {
+        (first as HTMLElement).focus();
+      }
+      try {
+        (first as HTMLElement).scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (e) {
+        (first as HTMLElement).scrollIntoView();
+      }
     }
+
+    prevStepRef.current = step;
   }, [step]);
   return (
     <div className="relative w-full min-h-screen" id={"speakers-registration"}>
@@ -87,7 +113,7 @@ export function SpeakersRegistration() {
         {/* <RegistrationForm /> */}
 
         <div className="h-full flex flex-col items-center lg:justify-between gap-6 lg:gap-10">
-          <p className="text-[25px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0">
+          <p className={`text-[25px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0 ${lang === 'AR' ? 'font-splart' : ''}`}>
             {uiTexts[lang ?? 'EN'].speakersRegistration}
           </p>
 

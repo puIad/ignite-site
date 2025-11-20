@@ -27,9 +27,9 @@ export function WhatIsIgniteSection() {
               <p className="text-[60px] lg:text-[135px] leading-none pt-2 lg:pt-4 ml-10 lg:ml-20">IGNITE</p>
             </div>
 
-            <div className="flex flex-col gap-2 lg:gap-6 text-[13px] lg:text-[25px]  uppercase font-bold lg:ml-60 mt-5 lg:mt-8">
+            <div className="flex flex-col gap-2 lg:gap-6 text-[13px] lg:text-[25px] font-bold lg:ml-60 mt-5 lg:mt-8">
               <p className="">
-                Ignite Algiers is a cultural public speaking event based on an international concept, originally developed in the United States and present in 350 cities worldwide.
+                Ignite® Algiers is a cultural public speaking event based on an international concept, originally developed in the United States and present in 350 cities worldwide.
               </p>
 
               {/* <p className="text-black/70 font-medium"> */}
@@ -62,8 +62,8 @@ export function WhatIsIgniteSection() {
               {/* </p> */}
 
               <p className="text-black/90 font-medium">
-                Organized for the first time in Algeria by the Vision & Innovation Club, this event offers selected speakers the opportunity to take the stage and present a topic in just 5 minutes, with 20 slides that advance automatically every 15 seconds.
-                Ignite Algiers is also enriched by inspiring talks from highly renowned guests , as well as other artistic performances,and entertaining shows.
+                Organized for the <b>first time</b> in Algeria by the <b>Vision & Innovation Club</b>, this event offers selected speakers the opportunity to take the stage and present a topic in just <b>5 minutes</b>, with <b>20 slides</b> that advance automatically<b> every 15 seconds.</b>
+                <b>Ignite® Algiers</b> is also enriched by inspiring talks from highly renowned guests , as well as other <b>artistic performances</b>, and <b>entertaining shows.</b>
               </p>
             </div>
 

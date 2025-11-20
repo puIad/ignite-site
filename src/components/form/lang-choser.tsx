@@ -7,9 +7,9 @@ export function LangChoser() {
   const lang = formStore(state => state.lang)
 
   return (
-    <div className="w-full flex justify-center">
+    <div id="lang-choser" className="w-full flex justify-center">
       <div className="flex flex-col items-start">
-  <p className="text-[20px] lg:text-[65px] text-primary font-bold uppercase font-display mb-5 lg:mb-10">{uiTexts[lang ?? 'EN'].chooseLanguage}</p>
+  <p className={`text-[20px] lg:text-[65px] text-primary font-bold uppercase font-display mb-5 lg:mb-10 ${lang === 'AR' ? 'font-splart' : ''}`}>{uiTexts[lang ?? 'EN'].chooseLanguage}</p>
 
         <div className="w-full h-[300px] lg:h-[820px] lg:w-[850px] flex flex-col gap-4 items-start">
           <button
@@ -20,7 +20,7 @@ export function LangChoser() {
               cn("text-[14px] lg:text-[18px] px-6 lg:px-11 py-2 lg:py-3 rounded-xl border font-bold border-primary/20 bg-white/10 text-primary w-[150px] lg:w-[300px]",
                 lang === "FR" && "bg-primary text-white"
               )}>
-            Francais
+            Français
           </button>
           <button
             onClick={() => {
@@ -30,7 +30,7 @@ export function LangChoser() {
               cn("text-[14px] lg:text-[18px] px-6 lg:px-11 py-2 lg:py-3 rounded-xl border font-bold border-primary/20 bg-white/10 text-primary w-[150px] lg:w-[300px]",
                 lang === "AR" && "bg-primary text-white"
               )}>
-            Arabic
+            العربية
           </button>
           <button
             onClick={() => {

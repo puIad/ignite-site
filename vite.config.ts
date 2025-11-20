@@ -7,6 +7,16 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      // Proxy all requests starting with /api to the backend during development
+      '/api': {
+        target: 'https://ignite-backend-el33.onrender.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
   plugins: [
     tanstackRouter({
       target: 'react',

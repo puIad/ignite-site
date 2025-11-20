@@ -238,9 +238,9 @@ export const fieldsData = {
       FR: "Quelle catégorie décrit le thème de votre Talk?",
     },
     placeholder: {
-      EN: "Select the category for your Talk",
+      EN: "Describe the the category for your Talk",
       AR: "اختر فئة حديثك",
-      FR: "Sélectionner la catégorie de votre Talk",
+      FR: "Décrire la catégorie de votre Talk",
     },
   },
   presentation_theme: {
@@ -379,6 +379,7 @@ export const uiTexts = {
     duo_no_solo: "No, I will lead the talk on my own.",
     duo_no_but_open: "No, but I am open to pairing with someone whose topic aligns with mine.",
     submit: "Submit",
+    submitAnother: "Submit another Form",
   },
   FR: {
     chooseLanguage: "Choisissez une langue",
@@ -397,6 +398,7 @@ export const uiTexts = {
     duo_no_solo: "Non, je présenterai seul(e).",
     duo_no_but_open: "Non, mais je suis ouvert(e) à m'associer avec quelqu'un dont le sujet est compatible.",
     submit: "Soumettre",
+    submitAnother: "Soumettre un autre formulaire",
   },
   AR: {
     chooseLanguage: "اختر اللغة",
@@ -415,6 +417,7 @@ export const uiTexts = {
     duo_no_solo: "لا، سألقي المحاضرة بنفسي.",
     duo_no_but_open: "لا، لكني منفتح على التعاون مع شخص موضوعه متوافق مع موضوعي.",
     submit: "إرسال",
+    submitAnother: "إرسال نموذج آخر",
   },
 } as const;
 
@@ -523,8 +526,8 @@ export const getFieldUtils = (lang: Lang) => {
 
   let step = ""
   if (lang === "EN") step = 'Step'
-  else if (lang === "FR") step = 'Etape'
-  else if (lang === "AR") step = 'خطوة'
+  else if (lang === "FR") step = 'Étape'
+  else if (lang === "AR") step = 'الخطوة'
 
   let next = ""
   if (lang === "EN") next = 'Next Step'
@@ -610,16 +613,16 @@ export const formStore = create<FormStore>((set) => ({
     date_of_birth: "",
     wilaya: "",
     is_student: "no",
-    university: undefined,
-    degree_and_major: undefined,
-    occupation: undefined,
+    university: "",
+    degree_and_major: "",
+    occupation: "",
   },
   partTwo: {
     knowledge_about_ignite: "",
     motivation: "",
     how_heard: "social_media",
     has_public_speaking_experience: "no",
-    public_speaking_experience: undefined,
+    public_speaking_experience: "",
     presentation_language: "",
     talk_category: "",
     presentation_theme: "",
@@ -627,9 +630,9 @@ export const formStore = create<FormStore>((set) => ({
   },
   partThree: {
     duo_talk_preference: "no_solo",
-    partner_name_and_relationship: undefined,
+    partner_name_and_relationship: "",
     interview_preference: "online",
-    additional_info: undefined,
+    additional_info: "",
   },
   setPartOne: (data: SchemaPartOne) => set({ partOne: data }),
   setPartTwo: (data: SchemaPartTwo) => set({ partTwo: data }),

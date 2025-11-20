@@ -27,21 +27,22 @@ export function FormOne() {
   const setPartOne = formStore((state) => state.setPartOne);
   const setStep = formStore((state) => state.setStep);
   const lang = formStore((state) => state.lang);
+  const partOne = formStore((s) => s.partOne);
   const [customErrors, setCustomErrors] = useState<Map<string, string>>(new Map())
 
   const form = useForm({
     defaultValues: {
-      email: "",
-      first_name: "",
-      last_name: "",
-      phone: "",
-      discord_username: "",
-      date_of_birth: "",
-      wilaya: "",
-      is_student: "yes" as "yes" | "no",
-      university: "",
-      degree_and_major: "",
-      occupation: "",
+      email: partOne.email ?? "",
+      first_name: partOne.first_name ?? "",
+      last_name: partOne.last_name ?? "",
+      phone: partOne.phone ?? "",
+      discord_username: partOne.discord_username ?? "",
+      date_of_birth: partOne.date_of_birth ?? "",
+      wilaya: partOne.wilaya ?? "",
+      is_student: partOne.is_student ?? ("yes" as "yes" | "no"),
+      university: partOne.university ?? "",
+      degree_and_major: partOne.degree_and_major ?? "",
+      occupation: partOne.occupation ?? "",
     },
     onSubmit: async ({ value }) => {
       if (value.is_student === "yes") {
@@ -109,6 +110,9 @@ export function FormOne() {
         date_of_birth: value.date_of_birth,
         wilaya: value.wilaya,
         is_student: value.is_student,
+        university: (value as any).university ?? "",
+        degree_and_major: (value as any).degree_and_major ?? "",
+        occupation: (value as any).occupation ?? "",
       };
       setPartOne(partOneData);
       setStep(2);
@@ -120,7 +124,7 @@ export function FormOne() {
   return (
     <div className="">
       <div className="flex justify-start gap-2 w-full mb-5 lg:mb-10">
-        <p className="text-[24px] lg:text-[65px] text-primary font-display">
+        <p className={`text-[24px] lg:text-[65px] text-primary font-display ${lang === 'AR' ? 'font-splart' : ''}`}>
           {step}
         </p>
         <p className="text-[14px] lg:text-[35px] text-primary">1/3</p>
@@ -135,7 +139,7 @@ export function FormOne() {
         className="flex justfiy-center lg:justify-start"
       >
         <div className="h-full flex flex-col justify-between">
-          <div className="lg:h-[820px] lg:w-[850px]">
+          <div className="lg:min-h-[820px] lg:w-[850px]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-4">
               <form.Field
                 name="first_name"
@@ -184,7 +188,7 @@ export function FormOne() {
                         name={field.name}
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        placeholder="Last Name"
+                        placeholder={getPlaceholder("last_name")}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       <FieldInfo field={field} />
@@ -213,7 +217,7 @@ export function FormOne() {
                         type="email"
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        placeholder="Email"
+                        placeholder={getPlaceholder("email")}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       <FieldInfo field={field} />
@@ -238,7 +242,7 @@ export function FormOne() {
                         type="tel"
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        placeholder="Phone"
+                        placeholder={getPlaceholder("phone")}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       <FieldInfo field={field} />
@@ -264,7 +268,7 @@ export function FormOne() {
                         name={field.name}
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        placeholder="Discord Username"
+                        placeholder={getPlaceholder("discord_username")}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       <FieldInfo field={field} />
@@ -291,7 +295,7 @@ export function FormOne() {
                         type="date"
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        placeholder="Date of Birth"
+                        placeholder={getPlaceholder("date_of_birth")}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       <FieldInfo field={field} />
@@ -315,7 +319,7 @@ export function FormOne() {
                         name={field.name}
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        placeholder="Wilaya"
+                        placeholder={getPlaceholder("wilaya")}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       <FieldInfo field={field} />

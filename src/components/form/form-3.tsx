@@ -30,16 +30,20 @@ export function FormThree() {
   const lang = formStore((state) => state.lang);
   const partOne = formStore((state) => state.partOne);
   const partTwo = formStore((state) => state.partTwo);
+  const setPartTwo = formStore((state) => state.setPartTwo);
+  const partThree = formStore((s) => s.partThree);
   const [submssion, setSubmission] = useState<"pending" | "success" | "failure">("pending");
   const [customErrors, setCustomErrors] = useState<Map<string, string>>(new Map())
   const [loading, setIsLoading] = useState(false)
+  const [submissionError, setSubmissionError] = useState<string | null>(null)
+  const setPartOne = formStore((state) => state.setPartOne);
 
   const form = useForm({
     defaultValues: {
-      duo_talk_preference: "no_solo",
-      partner_name_and_relationship: "",
-      interview_preference: "online",
-      additional_info: "",
+      duo_talk_preference: partThree.duo_talk_preference ?? "no_solo",
+      partner_name_and_relationship: partThree.partner_name_and_relationship ?? "",
+      interview_preference: partThree.interview_preference ?? "online",
+      additional_info: partThree.additional_info ?? "",
     },
     onSubmit: async ({ value }) => {
 
@@ -77,43 +81,20 @@ export function FormThree() {
 
       console.log('all the data : ', fullData)
 
-      // If Arabic registration is selected, check for non-Arabic (Latin) chars
-      if (lang === "AR") {
-        const latinRe = /[A-Za-z]/;
-        const nonArabicFields: string[] = [];
-        (Object.keys(fullData) as Array<keyof FullSchema>).forEach((k) => {
-          const v = (fullData as any)[k];
-          if (typeof v === "string" && v && latinRe.test(v)) {
-            nonArabicFields.push(k as string);
-          }
-        });
-
-        if (nonArabicFields.length > 0) {
-          // mark errors for those fields and stop submit so user can correct or confirm
-          setCustomErrors((prev) => {
-            const newMap = new Map(prev);
-            nonArabicFields.forEach((f) =>
-              newMap.set(
-                f,
-                // localized warning
-                fieldsErrors.invalid(f, lang) ?? ""
-              )
-            );
-            return newMap;
-          });
-          setIsLoading(false);
-          console.warn("Detected non-Arabic characters in fields:", nonArabicFields);
-          return;
-        }
-      }
+      // Previously there was a validation that rejected non-Arabic (Latin) characters
+      // when `lang === 'AR'`. That restriction was removed so Arabic registrations
+      // may include Latin/non-Arabic characters. No action needed here.
 
       try {
+        setSubmissionError(null);
         setIsLoading(true);
-        const res = await fetch("https://ignite-backend-el33.onrender.com/api/participants/register/", {
+        const API_BASE = import.meta.env.DEV ? "" : "https://ignite-backend-el33.onrender.com";
+
+        const res = await fetch(`${API_BASE}/api/participants/register/`, {
           method: "POST",
+          mode: 'cors',
           headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            Accept: "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(fullData),
         });
@@ -127,6 +108,7 @@ export function FormThree() {
 
         if (res.ok) {
           setSubmission("success");
+          setSubmissionError(null);
         } else {
           console.error("Server error:", res.status, result);
           // if backend returns field-specific errors, map them to customErrors
@@ -139,6 +121,8 @@ export function FormThree() {
               return newMap;
             });
           }
+          const serverMessage = result && typeof result === 'object' ? JSON.stringify(result) : String(result ?? `status ${res.status}`);
+          setSubmissionError(serverMessage);
           setSubmission("failure");
         }
 
@@ -147,6 +131,8 @@ export function FormThree() {
       } catch (error) {
         console.error("Submission error:", error);
         setIsLoading(false);
+        setSubmission("failure");
+        setSubmissionError(error instanceof Error ? error.message : String(error));
       }
     },
   });
@@ -165,20 +151,66 @@ export function FormThree() {
           <img
             className="h-30"
             src="/images/tick.svg" />
-          <h2 className="text-[20px] lg:text-[40px] font-bold text-primary">
+          <h2 className={`text-[20px] lg:text-[40px] text-primary ${lang === 'AR' ? 'madani-bold' : 'font-bold'}`}>
             {lang === "AR"
               ? "تم إرسال طلبك بنجاح!"
               : lang === "FR"
                 ? "Votre demande a été envoyée avec succès!"
                 : "Your registration has been submitted successfully!"}
           </h2>
-          <p className="text-[14px] lg:text-[20px] text-primary/80">
+          <p className={`text-[14px] lg:text-[20px] text-primary/80 ${lang === 'AR' ? 'madani-light' : ''}`}>
             {lang === "AR"
               ? "شكراً لك على التسجيل. سنتواصل معك قريباً."
               : lang === "FR"
                 ? "Merci pour votre inscription. Nous vous contacterons bientôt."
                 : "Thank you for registering. We'll be in touch soon."}
           </p>
+        </div>
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              // reset stored form parts and go back to first step
+              setPartOne({
+                email: "",
+                first_name: "",
+                last_name: "",
+                phone: "",
+                discord_username: "",
+                date_of_birth: "",
+                wilaya: "",
+                is_student: "no",
+                university: "",
+                degree_and_major: "",
+                occupation: "",
+              });
+              setPartTwo({
+                knowledge_about_ignite: "",
+                motivation: "",
+                how_heard: "social_media",
+                has_public_speaking_experience: "no",
+                public_speaking_experience: "",
+                presentation_language: "",
+                talk_category: "",
+                presentation_theme: "",
+                theme_elaboration: "",
+              });
+              setPartThree({
+                duo_talk_preference: "no_solo",
+                partner_name_and_relationship: "",
+                interview_preference: "online",
+                additional_info: "",
+              });
+              setSubmission("pending");
+              setIsLoading(false);
+              setCustomErrors(new Map());
+              setSubmissionError(null);
+              setStep(1);
+            }}
+            className={`font-bold font-sans uppercase rounded-full ${lang === 'AR' ? 'font-splart' : ''} bg-primary text-white shadow-[0_0_35px_0_rgba(117,11,43,0.6)] px-6 lg:px-10 py-2.5 lg:py-3`}
+          >
+            <p className="leading-[1.2] lg:leading-none text-[12px] lg:text-[20px]">{uiTexts[lang ?? 'EN'].submitAnother}</p>
+          </button>
         </div>
       </div>
     );
@@ -197,7 +229,7 @@ export function FormThree() {
             className="h-30"
             src="/images/error.svg"
           />
-          <h2 className="text-[20px] lg:text-[40px] font-bold text-red-600">
+          <h2 className={`text-[20px] lg:text-[40px] ${lang === 'AR' ? 'madani-bold' : 'font-bold'} text-red-600`}>
             {lang === "AR"
               ? "فشل في إرسال الطلب"
               : lang === "FR"
@@ -205,13 +237,62 @@ export function FormThree() {
                 : "Failed to submit your request"}
           </h2>
 
-          <p className="text-[14px] lg:text-[20px] text-red-600/80">
+          <p className={`text-[14px] lg:text-[20px] text-red-600/80 ${lang === 'AR' ? 'madani-light' : ''}`}>
             {lang === "AR"
               ? "حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى."
               : lang === "FR"
                 ? "Une erreur est survenue lors du traitement. Veuillez réessayer."
                 : "An error occurred while processing your request. Please try again."}
           </p>
+          {submissionError ? (
+            <pre className="text-[12px] lg:text-[14px] text-red-500/90 max-w-[700px] whitespace-pre-wrap break-words mt-2">{submissionError}</pre>
+          ) : null}
+        </div>
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              // reset and allow another submission
+              setPartOne({
+                email: "",
+                first_name: "",
+                last_name: "",
+                phone: "",
+                discord_username: "",
+                date_of_birth: "",
+                wilaya: "",
+                is_student: "no",
+                university: "",
+                degree_and_major: "",
+                occupation: "",
+              });
+              setPartTwo({
+                knowledge_about_ignite: "",
+                motivation: "",
+                how_heard: "social_media",
+                has_public_speaking_experience: "no",
+                public_speaking_experience: "",
+                presentation_language: "",
+                talk_category: "",
+                presentation_theme: "",
+                theme_elaboration: "",
+              });
+              setPartThree({
+                duo_talk_preference: "no_solo",
+                partner_name_and_relationship: "",
+                interview_preference: "online",
+                additional_info: "",
+              });
+              setSubmission("pending");
+              setIsLoading(false);
+              setCustomErrors(new Map());
+              setSubmissionError(null);
+              setStep(1);
+            }}
+            className={`font-bold font-sans uppercase rounded-full ${lang === 'AR' ? 'font-splart' : ''} bg-primary text-white shadow-[0_0_35px_0_rgba(117,11,43,0.6)] px-6 lg:px-10 py-2.5 lg:py-3`}
+          >
+            <p className="leading-[1.2] lg:leading-none text-[12px] lg:text-[20px]">{uiTexts[lang ?? 'EN'].submitAnother}</p>
+          </button>
         </div>
       </div>
     );
@@ -221,7 +302,7 @@ export function FormThree() {
   return (
     <div>
       <div className="flex justify-start gap-2 lg:mb-10">
-        <p className="text-[24px] lg:text-[65px] text-primary font-display">
+        <p className={`text-[24px] lg:text-[65px] text-primary font-display ${lang === 'AR' ? 'font-splart' : ''}`}>
           {step}
         </p>
         <p className="text-[14px] lg:text-[35px] text-primary">3/3</p>
@@ -236,7 +317,7 @@ export function FormThree() {
         className="flex justify-center"
       >
         <div>
-          <div className="flex flex-col gap-x-20 gap-y-4 w-[320px] lg:h-[820px] lg:w-[850px] px-3">
+          <div className="flex flex-col gap-x-20 gap-y-4 w-[320px] lg:min-h-[820px] lg:w-[850px] px-3">
             <form.Field
               name="duo_talk_preference"
               validators={{
@@ -413,7 +494,7 @@ export function FormThree() {
             <button
               type="button"
               className="text-[14px] lg:text-[16px] px-4 py-2.75 lg:px-10 lg:py-3 rounded-xl lg:rounded-2xl text-bold bg-primary/5 border-primary/30 border flex gap-4 items-center text-primary font-bold uppercase"
-              onClick={() => setStep(0)}
+              onClick={() => setStep(2)}
             >
               {uiTexts[lang ?? 'EN'].goBack}
               <div className="rotate-180">
@@ -427,9 +508,9 @@ export function FormThree() {
                 <button
                   className="text-[14px] lg:text-[16px] text-white font-bold px-4 py-3 lg:px-10 lg:py-3 rounded-xl lg:rounded-2xl text-bold bg-primary flex gap-4 items-center text-whitefont-bold uppercase disabled:opacity-20 disabled:bg-primary/20"
                   type="submit"
-                  disabled={!canSubmit}
+                  disabled={!!isSubmitting || loading}
                 >
-                  {loading ? uiTexts[lang ?? 'EN'].sending : <><p>{next}</p> <Arrow /></>}
+                  {loading ? uiTexts[lang ?? 'EN'].sending : <><p>{uiTexts[lang ?? 'EN'].submit}</p> <Arrow /></>}
                 </button>
               )}
             />

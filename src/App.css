@@ -65,6 +65,14 @@
     font-style: normal;
   }
 
+  /* Splart H Mawaddah (Regular) - used for Arabic headings */
+  @font-face {
+    font-family: "Splart";
+    src: url("/fonts/splart-h-mawaddah Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
   /* Madani Arabic (Light) */
   @font-face {
     font-family: "Madani";
@@ -88,6 +96,11 @@
     font-weight: 800;
     font-style: normal;
   }
+
+  /* Utility class to apply Splart for Arabic headings */
+  .font-splart {
+    font-family: "Splart", "Madani", var(--font-sans) !important;
+  }
 }
 
 @layer utilities {
@@ -101,6 +114,28 @@
      that contain Arabic text get lang="ar" so only they use the Madani typeface. */
   [lang="ar"] {
     font-family: "Madani", var(--font-sans) !important;
+  }
+
+  /* When the form wrapper has the .lang-ar class, ensure form controls use Madani (light) for better Arabic rendering */
+  .lang-ar input,
+  .lang-ar select,
+  .lang-ar textarea,
+  .lang-ar label,
+  .lang-ar option,
+  .lang-ar .radio-label {
+    font-family: "Madani", var(--font-sans) !important;
+    font-weight: 300 !important;
+  }
+
+  /* Explicit Madani weight utilities */
+  .madani-bold {
+    font-family: "Madani", var(--font-sans) !important;
+    font-weight: 800 !important;
+  }
+
+  .madani-light {
+    font-family: "Madani", var(--font-sans) !important;
+    font-weight: 300 !important;
   }
 }
 

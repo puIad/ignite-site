@@ -156,7 +156,7 @@ export const fieldsData = {
     placeholder: {
       EN: "Enter your occupation",
       AR: "أدخل مهنتك",
-      FR: "Entrez votre occupation",
+      FR: "Entrer votre occupation",
     },
   },
   knowledge_about_ignite: {
@@ -168,7 +168,7 @@ export const fieldsData = {
     placeholder: {
       EN: "Tell us what you know about Ignite® Talks",
       AR: "أخبرنا بما تعرفه عن Ignite® Talks",
-      FR: "Dites-nous ce que vous savez sur Ignite® Talks",
+      FR: "Dire ce que vous savez sur Ignite® Talks",
     },
   },
   motivation: {
@@ -180,14 +180,14 @@ export const fieldsData = {
     placeholder: {
       EN: "Tell us what motivated you",
       AR: "أخبرنا بما دفعك للمشاركة",
-      FR: "Dites-nous ce qui vous a motivé",
+      FR: "Dire ce qui vous a motivé",
     },
   },
   how_heard: {
     label: {
       EN: "How did you hear about Ignite® Algiers?",
       AR: 'كيف سمعت ب"Ignite® Algiers"؟',
-      FR: "Comment avez-vous entendu parler d'Ignite Algiers ?",
+      FR: "Comment avez-vous entendu parler d'Ignite® Algiers?",
     },
     placeholder: {
       EN: "",
@@ -198,8 +198,8 @@ export const fieldsData = {
   has_public_speaking_experience: {
     label: {
       EN: "Have you ever participated in a public speaking event, or given a talk in front of the public?",
-      AR: "هل شاركت سابقا في هذا النوع من التظاهرات، أو ألقيت محاضرة أمام العامة ؟",
-      FR: "Avez-vous déjà participé à un évènement de public speaking, ou donné une conférence devant un public ?",
+      AR: "هل شاركت سابقا في هذا النوع من التظاهرات، أو ألقيت محاضرة أمام العامة؟",
+      FR: "Avez-vous déjà participé à un évènement de public speaking, ou donné une conférence devant un publique?",
     },
     placeholder: {
       EN: "",
@@ -209,14 +209,14 @@ export const fieldsData = {
   },
   public_speaking_experience: {
     label: {
-      EN: "tell us about your experience",
-      AR: "اذا كانت الاجابة بنعم, اطلعنا عن تجاربك السابقة",
+      EN: "Tell us about your experience",
+      AR: "اطلعنا عن تجاربك السابقة",
       FR: "Décrivez votre expérience brièvement",
     },
     placeholder: {
       EN: "Describe your experience",
       AR: "اوصف تجاربك السابقة",
-      FR: "Décrivez votre expérience",
+      FR: "Décrire votre expérience",
     },
   },
   presentation_language: {
@@ -226,52 +226,52 @@ export const fieldsData = {
       FR: "Dans quelle langue sera-t-elle votre présentation ?",
     },
     placeholder: {
-      EN: "Select your preferred presentation language",
-      AR: "اختر لغة العرض",
-      FR: "Sélectionnez votre langue de présentation",
+      EN: "Write your preferred presentation language",
+      AR: "أكتب لغة العرض",
+      FR: "Ecrire votre langue de présentation",
     },
   },
   talk_category: {
     label: {
-      EN: "Which category best describes the theme of your talk?",
+      EN: "Which category best describes the theme of your Talk?",
       AR: "ما هي الفئة التي تصف موضوع حديثك بشكل أفضل؟",
-      FR: "Quelle catégorie décrit le thème de votre talk ?",
+      FR: "Quelle catégorie décrit le thème de votre Talk?",
     },
     placeholder: {
-      EN: "Select the category for your talk",
+      EN: "Select the category for your Talk",
       AR: "اختر فئة حديثك",
-      FR: "Sélectionnez la catégorie de votre talk",
+      FR: "Sélectionner la catégorie de votre Talk",
     },
   },
   presentation_theme: {
     label: {
       EN: "What is the theme of your presentation?",
-      AR: "ماهو الموضوع الذي اخترته ؟",
-      FR: "Quel est le thème de votre présentation ?",
+      AR: "ماهو الموضوع الذي اخترته؟",
+      FR: "Quel est le thème de votre présentation?",
     },
     placeholder: {
       EN: "Enter the theme of your presentation",
       AR: "أدخل موضوع عرضك",
-      FR: "Entrez le thème de votre présentation",
+      FR: "Entrer le thème de votre présentation",
     },
   },
   theme_elaboration: {
     label: {
       EN: "Could you elaborate the content (the theme) of your presentation?",
       AR: "هل يمكنك توضيح محتوى (موضوع) العرض الخاص بك ؟",
-      FR: "Pourriez-vous développer le contenu (le thème) de votre présentation ?",
+      FR: "Pourriez-vous développer le contenu (le thème) de votre présentation?",
     },
     placeholder: {
       EN: "Elaborate on your presentation theme",
       AR: "وضح محتوى عرضك",
-      FR: "Développez le contenu de votre présentation",
+      FR: "Développer le contenu de votre présentation",
     },
   },
   duo_talk_preference: {
     label: {
-      EN: "Are you considering doing a duo talk",
+      EN: "Are you considering doing a duo talk?",
       AR: "هل تفكر في إلقاء المحاضرة بالتعاون مع شخص آخر؟",
-      FR: "Envisagez-vous de faire une présentation en duo ?",
+      FR: "Voulez-vous faire une présentation en duo?",
     },
     placeholder: {
       EN: "",
@@ -281,14 +281,14 @@ export const fieldsData = {
   },
   partner_name_and_relationship: {
     label: {
-      EN: "If yes, what is the name of this partner and what type of relationship do you have?",
-      AR: "إذا كانت الإجابة بنعم، فما هو اسم هذا الشريك وماهي صلة القرابة بينكما ؟",
-      FR: "Si oui, quel est le nom de ce partenaire et quel type de relation avez-vous ?",
+      EN: "If yes, mention their full name",
+      AR: "إذا كانت الإجابة بنعم،أذكر إسم و لقب الزميل",
+      FR: "Si oui, mentionner son nom et prénom",
     },
     placeholder: {
-      EN: "Enter your partner's name and your relationship",
-      AR: "أدخل اسم شريكك وعلاقتك",
-      FR: "Entrez le nom de votre partenaire et votre relation",
+      EN: "Enter your partner's full name",
+      AR: "أدخل اسم زميلك",
+      FR: "Entrer le nom et prénom de votre binôme",
     },
   },
   interview_preference: {
@@ -378,6 +378,7 @@ export const uiTexts = {
     duo_yes_with_partner: "Yes, I already have a partner to do the talk with.",
     duo_no_solo: "No, I will lead the talk on my own.",
     duo_no_but_open: "No, but I am open to pairing with someone whose topic aligns with mine.",
+    submit: "Submit",
   },
   FR: {
     chooseLanguage: "Choisissez une langue",
@@ -392,9 +393,10 @@ export const uiTexts = {
     howHeard_social_media: "Via vos réseaux sociaux",
     howHeard_friend: "Via un ami",
     howHeard_other: "Autre",
-  duo_yes_with_partner: "Oui, j'ai déjà un partenaire pour faire la présentation.",
-  duo_no_solo: "Non, je présenterai seul(e).",
-  duo_no_but_open: "Non, mais je suis ouvert(e) à m'associer avec quelqu'un dont le sujet est compatible.",
+    duo_yes_with_partner: "Oui, j'ai déjà un partenaire pour faire la présentation.",
+    duo_no_solo: "Non, je présenterai seul(e).",
+    duo_no_but_open: "Non, mais je suis ouvert(e) à m'associer avec quelqu'un dont le sujet est compatible.",
+    submit: "Soumettre",
   },
   AR: {
     chooseLanguage: "اختر اللغة",
@@ -409,9 +411,10 @@ export const uiTexts = {
     howHeard_social_media: "من خلال منصات التواصل الاجتماعي الخاصة بك",
     howHeard_friend: "من خلال صديق",
     howHeard_other: "أخرى",
-    duo_yes_with_partner: "نعم، لدي شريك لإلقاء المحاضرة معه.",
+    duo_yes_with_partner: "نعم، لدي زميل لإلقاء المحاضرة معه.",
     duo_no_solo: "لا، سألقي المحاضرة بنفسي.",
     duo_no_but_open: "لا، لكني منفتح على التعاون مع شخص موضوعه متوافق مع موضوعي.",
+    submit: "إرسال",
   },
 } as const;
 

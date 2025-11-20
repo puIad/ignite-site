@@ -41,7 +41,7 @@ A scientific club founded in 2014 at the National Polytechnic School of Algiers 
             <a href="mailto:vic@g.enp.edu.dz" className="lowercase cursor-pointer hover:underline">vic@g.enp.edu.dz</a>
           </div>
           <div className="flex flex-col gap-1 lg:gap-2 uppercase text-black font-bold text-[7px] lg:text-[12px]">
-            <a href="#what-is-ignite" className="cursor-pointer hover:underline">WHAT IS IGNITE</a>
+            <a href="#what-is-ignite" className="cursor-pointer hover:underline">WHAT IS IGNITE®</a>
             <a href="#previous-editions" className="cursor-pointer hover:underline">PREVIOUS EDITIONS</a>
             <a href="#speakers-registration" className="cursor-pointer hover:underline">SPEAKERS FORM</a>
             <a href="#about-us" className="cursor-pointer hover:underline">ABOUT US</a>

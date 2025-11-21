@@ -14,7 +14,7 @@ export function FooterSection() {
           <div className="h-[250px] w-px bg-black hidden lg:inline" />
           <div className="w-[250px] h-px bg-black lg:hidden" />
 
-            <div className="flex flex-col gap-2 lg:gap-4">
+          <div className="flex flex-col gap-2 lg:gap-4">
             <p className="text-[18px] lg:text-[40px] font-display text-black">VISION & INNOVATION CLUB</p>
             <p className="text-[10px] lg:text-[20px] text-black lg:max-w-[650px]">
               {`
@@ -38,7 +38,7 @@ A scientific club founded in 2014 at the National Polytechnic School of Algiers 
         <div className="w-full flex justify-between lg:justify-start gap-20 mb-8 mt-4 lg:mt-0 lg:mb-12">
           <div className="flex flex-col gap-1 lg:gap-2 uppercase text-black font-bold text-[7px] lg:text-[12px]">
             <a href="https://www.enp.edu.dz/en/" target="_blank" rel="noopener noreferrer" className="cursor-pointer hover:underline">NATIONAL POLYTECHNIC SCHOOL</a>
-            <a href="mailto:vic@g.enp.edu.dz" className="lowercase cursor-pointer hover:underline">vic@g.enp.edu.dz</a>
+            <a href="mailto:vic@g.enp.edu.dz" className="cursor-pointer hover:underline uppercase text-[16px]">vic@g.enp.edu.dz</a>
           </div>
           <div className="flex flex-col gap-1 lg:gap-2 uppercase text-black font-bold text-[7px] lg:text-[12px]">
             <a href="#what-is-ignite" className="cursor-pointer hover:underline">WHAT IS IGNITE®</a>

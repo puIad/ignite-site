@@ -25,10 +25,7 @@ export function WhatIsIgniteSection({ section, setSection }: { section: number, 
           maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
           WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
         }}
-        animate={section === 3 && {
-          "--inner": "100%",
-          "--outer": "100%",
-        }}
+        animate={animateValue}
         transition={{
           delay: 0,
           duration: 2,
@@ -68,7 +65,7 @@ export function WhatIsIgniteSection({ section, setSection }: { section: number, 
         <motion.div
           initial={{ y: -30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ delay: .8, duration: 1, ease: "easeOut" }}
+          transition={{ delay: .5, duration: .6, ease: "easeOut" }}
         >
           <div className="flex flex-col lg:py-20">
             <div className="font-display text-primary flex flex-col items-center lg:items-start">

@@ -14,7 +14,7 @@ export function SpeakersRegistration({ section }: { section: number }) {
     "--inner": "100%",
     "--outer": "100%",
   } : {
-    opacity: '40%',
+    opacity: '0%',
     "--inner": "30%",
     "--outer": "60%",
   }

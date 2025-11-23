@@ -6,7 +6,7 @@ export function PreviousEditionsSection({ setSection }: { setSection: (section: 
     <div id="previous-editions" className="bg-primary w-screen h-screen text-white px-8 py-4 lg:px-20 lg:py-0">
       <img src="/images/blended-image.png" className="absolute top-0 left-0 z-10 h-screen w-full object-cover" />
       <div className="z-20 h-full flex lg:items-center">
-        <div className="w-full flex flex-col justify-center gap-5 mt-4 lg:mt-0">
+        <div className="w-full flex flex-col lg:justify-center gap-5 mt-4 lg:mt-0">
           <motion.p
             initial={{ y: -30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -17,9 +17,9 @@ export function PreviousEditionsSection({ setSection }: { setSection: (section: 
             initial={{ y: -30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
-            className="w-full flex flex-col justify-start lg:flex-row border z-100 border-[#FF6F00] lg:mt-4">
+            className="w-full h-[73vh] flex flex-col justify-start lg:flex-row border z-100 border-[#FF6F00] lg:mt-4">
 
-            <div className="relative overflow-hidden space-y-6 lg:space-y-20 h-[25%] lg:h-[650px] w-full z-20 p-4 py-6 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#FF6F00]">
+            <div className="relative overflow-hidden space-y-6 lg:space-y-20 h-[50%] lg:h-[650px] w-full z-20 p-4 py-6 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#FF6F00]">
               <img src="/images/edition-2024.webp" className="absolute object-cover h-full w-full top-0 right-0 -z-10" />
 
               <div className="text-[17px] lg:text-[44px]">
@@ -42,7 +42,7 @@ export function PreviousEditionsSection({ setSection }: { setSection: (section: 
               </div>
             </div>
 
-            <div className="relative overflow-hidden space-y-6 lg:space-y-20 h-[25%] lg:h-[650px] w-full   z-20 p-4 py-6 lg:p-12">
+            <div className="relative overflow-hidden space-y-6 lg:space-y-20 h-[50%] lg:h-[650px] w-full   z-20 p-4 py-6 lg:p-12">
               <img src="/images/edition-2023.webp" className="absolute object-cover h-full w-full top-0 right-0 -z-10" />
 
               <div className="text-[17px] lg:text-[44px]">
@@ -66,7 +66,7 @@ export function PreviousEditionsSection({ setSection }: { setSection: (section: 
             </div>
           </motion.div>
 
-          <div className="w-full flex justify-center pt-2 lg:pt-10 z-50">
+          <div className="w-full hidden lg:flex justify-center pt-2 lg:pt-10 z-50">
             <Button color="white z-100" onClick={() => setSection(4)}>REGISTER TO SPEAK AT IGNITE</Button>
           </div>
 

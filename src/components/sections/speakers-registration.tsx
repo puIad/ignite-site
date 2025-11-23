@@ -167,7 +167,7 @@ export function SpeakersRegistration({ section }: { section: number }) {
         </div>
       </motion.div>
 
-      <div className="mt-4" >
+      <div className="my-4" >
         <Logos color="black" />
       </div>
       {/* <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20"> */}

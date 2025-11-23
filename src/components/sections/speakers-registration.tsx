@@ -1,8 +1,9 @@
+import { AnimatePresence, motion } from "motion/react"
 import { FormOne } from "../form/form-1";
 import { FormTwo } from "../form/form-2";
 import { FormThree } from "../form/form-3";
 import { LangChoser } from "../form/lang-choser";
-import { formStore, uiTexts } from "../form/schema";
+import { formStore } from "../form/schema";
 import { Logos } from "../ui/logos";
 import { TimeLocationTag } from "../ui/time-location-tag";
 import { useEffect, useRef } from "react";
@@ -64,17 +65,14 @@ export function SpeakersRegistration() {
       } catch (e) {
         if (firstButton) firstButton.focus();
       }
-      try {
-        chooser.scrollIntoView({ behavior: "smooth", block: "center" });
-      } catch (e) {
-        chooser.scrollIntoView();
-      }
+
       prevStepRef.current = step;
       return;
     }
 
     // Only run the form-step focus/scroll when we are on a form step (1..3)
     if (step > 0) {
+      // wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
       const selector = 'input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), select:not([disabled])';
       const first = wrapper.querySelector(selector) as HTMLElement | null;
       if (!first) {
@@ -87,50 +85,90 @@ export function SpeakersRegistration() {
       } catch (e) {
         (first as HTMLElement).focus();
       }
-      try {
-        (first as HTMLElement).scrollIntoView({ behavior: "smooth", block: "center" });
-      } catch (e) {
-        (first as HTMLElement).scrollIntoView();
-      }
+
     }
 
     prevStepRef.current = step;
   }, [step]);
   return (
-    <div className="relative w-full" id={"speakers-registration"}>
-      <img
-        src="/images/noisy-red-mobile.webp"
+    <div className="relative flex flex-col justify-between h-dvh w-screen" id={"speakers-registration"}>
+      <motion.img
+        src="/images/noisy-red-mobile.png"
         className="absolute lg:hidden h-full object-cover top-0 left-0 -z-10"
+        style={{
+          ["--inner" as any]: "30%",
+          ["--outer" as any]: "60%",
+          maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+          WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+        }}
+        whileInView={{
+          "--inner": "100%",
+          "--outer": "100%",
+        }}
+        transition={{
+          delay: 1.2,
+          duration: 1,
+          ease: "easeInOut"
+        }}
       />
-      <img
-        src="/images/noisy-red-desktop.webp"
+      <motion.img
+        src="/images/noisy-red-desktop.png"
         className="absolute hidden h-full object-cover top-0 left-0 lg:inline -z-10"
+        style={{
+          ["--inner" as any]: "30%",
+          ["--outer" as any]: "60%",
+          maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+          WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+        }}
+        whileInView={{
+          "--inner": "100%",
+          "--outer": "100%",
+        }}
+        transition={{
+          delay: 0.8,
+          duration: 0.8,
+          ease: "easeInOut"
+        }}
       />
 
-      <div className="w-full px-4 py-40 lg:px-20 lg:py-20 flex flex-col justify-between">
-        {/* content  */}
+      <motion.div
+        initial={{ y: -30, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ delay: 5, duration: 1, ease: "easeOut" }}
+        className="h-full w-full px-4 py-0 lg:px-20 lg:py-8 flex flex-col justify-start">
 
-        {/* <RegistrationForm /> */}
-
-        <div className="h-full flex flex-col items-center lg:justify-between gap-6 lg:gap-10">
-          <p className={`text-[25px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0 ${lang === 'AR' ? 'font-splart' : ''}`}>
-            {/* {uiTexts[lang ?? 'EN'].speakersRegistration} */}
+        <div className="h-full w-full flex flex-col gap-6 lg:gap-10">
+          <p className={`text-[41px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0 ${lang === 'AR' ? 'font-splart' : ''}`}>
             SPEAKERS REGISTRATION
           </p>
 
-          <div id="speakers-registration-form" className="bg-primary/4 border-primary/40 border py-10 lg:py-20 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center">
-            {step === 0 && <LangChoser />}
-            {step === 1 && <FormOne />}
-            {step === 2 && <FormTwo />}
-            {step === 3 && <FormThree />}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={step}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              transition={{ duration: .3 }}
+            >
+              <div
+                id="speakers-registration-form"
+                className="bg-primary/4 border-primary/40 border h-[50vh] lg:h-[70vh] overflow-y-scroll lg:px-50 py-10 lg:py-20 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center"
+              >
+                {step === 0 && <LangChoser />}
+                {step === 1 && <FormOne />}
+                {step === 2 && <FormTwo />}
+                {step === 3 && <FormThree />}
+              </div>
+            </motion.div>
+            <div className="mt-4" >
+              <Logos color="black" />
+            </div>
+          </AnimatePresence>
         </div>
-
-      </div>
-      <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20">
-        <TimeLocationTag />
-        <Logos color="black" />
-      </div>
+      </motion.div>
+      {/* <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20"> */}
+      {/*   <TimeLocationTag /> */}
+      {/* </div> */}
     </div>
   );
 }

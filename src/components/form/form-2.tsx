@@ -86,7 +86,7 @@ export function FormTwo() {
   return (
     <div className="flex flex-col justify-center">
       <div className="flex justify-start gap-2 mb-5 lg:mb-10">
-        <p className={`text-[24px] lg:text-[65px] text-primary font-display ${lang === 'AR' ? 'font-splart' : ''}`}>
+        <p className={`text-[24px] lg:text-[65px] text-primary font-display ${lang === 'AR' ? 'font-splart' : ''} uppercase`}>
           {step}
         </p>
         <p className="text-[14px] lg:text-[35px] text-primary">2/3</p>
@@ -98,10 +98,10 @@ export function FormTwo() {
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className="flex justify-center  lg:justify-start lg:w-[850px]"
+        className="flex justify-center lg:justify-start h-full lg:w-[850px]"
       >
         <div className="h-full flex flex-col justify-between">
-          <div className="flex flex-col items-start lg:items-start gap-x-20  gap-y-3 lg:gap-y-4 lg:min-h-[920px] lg:w-[850px] ">
+          <div className="flex flex-col items-start lg:items-start gap-x-20  gap-y-3 lg:gap-y-4 lg:w-[850px] ">
             <form.Field
               name="knowledge_about_ignite"
               validators={{
@@ -417,7 +417,7 @@ export function FormTwo() {
             />
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 mt-10">
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 mt-10 lg:pb-10">
             <button
               type="button"
               className="text-[14px] lg:text-[16px] px-4 py-2.75 lg:px-10 lg:py-3 rounded-xl lg:rounded-2xl text-bold bg-primary/5 border-primary/30 border flex gap-4 items-center text-primary font-bold uppercase"

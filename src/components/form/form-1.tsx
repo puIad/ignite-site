@@ -32,17 +32,29 @@ export function FormOne() {
 
   const form = useForm({
     defaultValues: {
-      email: partOne.email ?? "",
-      first_name: partOne.first_name ?? "",
-      last_name: partOne.last_name ?? "",
-      phone: partOne.phone ?? "",
-      discord_username: partOne.discord_username ?? "",
-      date_of_birth: partOne.date_of_birth ?? "",
-      wilaya: partOne.wilaya ?? "",
-      is_student: partOne.is_student ?? ("yes" as "yes" | "no"),
-      university: partOne.university ?? "",
-      degree_and_major: partOne.degree_and_major ?? "",
-      occupation: partOne.occupation ?? "",
+
+      email: "ahmed@gmail.com",
+      first_name: "aahmed",
+      last_name: "hassainec",
+      phone: "111111111",
+      discord_username: "ahemd124",
+      date_of_birth: "03-04-2004",
+      wilaya: "skikda",
+      is_student: ("yes" as "yes" | "no"),
+      university: "ahmed asdsf asdsf",
+      degree_and_major: "ahme asdfd",
+      occupation: "ahmedc asdfk",
+      // email: partOne.email ?? "ahmed@gmail.com",
+      // first_name: partOne.first_name ?? "aahmed",
+      // last_name: partOne.last_name ?? "hassainec",
+      // phone: partOne.phone ?? "111111111",
+      // discord_username: partOne.discord_username ?? "ahemd124",
+      // date_of_birth: partOne.date_of_birth ?? "03-04-2004",
+      // wilaya: partOne.wilaya ?? "",
+      // is_student: partOne.is_student ?? ("yes" as "yes" | "no"),
+      // university: partOne.university ?? "ahmed asdsf asdsf",
+      // degree_and_major: partOne.degree_and_major ?? "ahme asdfd",
+      // occupation: partOne.occupation ?? "ahmedc asdfk",
     },
     onSubmit: async ({ value }) => {
       if (value.is_student === "yes") {
@@ -124,7 +136,7 @@ export function FormOne() {
   return (
     <div className="">
       <div className="flex justify-start gap-2 w-full mb-5 lg:mb-10">
-        <p className={`text-[24px] lg:text-[65px] text-primary font-display ${lang === 'AR' ? 'font-splart' : ''}`}>
+        <p className={`text-[24px] lg:text-[65px] text-primary font-display uppercase ${lang === 'AR' ? 'font-splart' : ''}`}>
           {step}
         </p>
         <p className="text-[14px] lg:text-[35px] text-primary">1/3</p>
@@ -138,7 +150,7 @@ export function FormOne() {
         }}
         className="flex justfiy-center lg:justify-start"
       >
-        <div className="h-full flex flex-col justify-between">
+        <div className="h-full flex flex-col lg:justify-between mb-10">
           <div className="">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-4">
               <form.Field

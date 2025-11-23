@@ -1,14 +1,13 @@
 import { cn } from "@/lib/utils"
 import { formStore, uiTexts } from "./schema"
-
 export function LangChoser() {
   const setLang = formStore(state => state.setLang)
   const setStep = formStore(state => state.setStep)
   const lang = formStore(state => state.lang)
 
   return (
-    <div id="lang-choser" className="w-full flex justify-center">
-      <div className="flex flex-col items-start">
+    <div>
+      <div className="h-full flex flex-col items-start">
         <p className={`text-[20px] lg:text-[65px] text-primary font-bold uppercase font-display mb-5 lg:mb-10 ${lang === 'AR' ? 'font-splart' : ''}`}>{uiTexts[lang ?? 'EN'].chooseLanguage}</p>
 
         <div className="w-full lg:w-[850px] flex flex-col gap-4 items-start">
@@ -56,10 +55,8 @@ export function LangChoser() {
           </button>
 
         </div>
-
       </div>
     </div>
-
   )
 }
 function Arrow() {

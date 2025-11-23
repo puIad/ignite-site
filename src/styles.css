@@ -1,3 +1,11 @@
+html,
+body {
+  overscroll-behavior: none;
+  /* Prevent scroll chaining */
+  overflow-y: hidden;
+  /* If you want to disable vertical scroll completely */
+}
+
 body {
   margin: 0;
   font-family: "Lato";

@@ -2,25 +2,68 @@ import { CopyrightIcon } from "lucide-react"
 import { Button } from "../ui/button"
 import { Logos } from "../ui/logos"
 import { Navbar } from "../ui/navbar"
+import { motion } from "motion/react"
 
-export function WhatIsIgniteSection() {
+export function WhatIsIgniteSection({ setSection }: { setSection: (section: number) => void }) {
   return (
-    <div id="what-is-ignite" className="relative w-full">
-      <img src="/images/noisy-red-mobile.webp" className="absolute lg:hidden h-full object-cover top-0 left-0 -z-10" />
-      <img src="/images/noisy-red-desktop.webp" className="absolute hidden h-full object-cover top-0 left-0 lg:inline -z-10" />
+    <div id="what-is-ignite" className="relative h-dvh w-full flex flex-col justify-between max-h-screen overflow-clip">
+      <motion.img
+        src="/images/noisy-red-mobile.png"
+        className="absolute lg:hidden h-full object-cover top-0 left-0 -z-10"
+        style={{
+          ["--inner" as any]: "30%",
+          ["--outer" as any]: "60%",
+          maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+          WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+        }}
+        whileInView={{
+          "--inner": "100%",
+          "--outer": "100%",
+        }}
+        transition={{
+          delay: 1.2,
+          duration: 1,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.img
+        src="/images/noisy-red-desktop.png"
+        className="absolute hidden h-full object-cover top-0 left-0 lg:inline -z-10"
+        style={{
+          ["--inner" as any]: "30%",
+          ["--outer" as any]: "60%",
+          maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+          WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
+        }}
+        whileInView={{
+          "--inner": "100%",
+          "--outer": "100%",
+        }}
+        transition={{
+          delay: 0.8,
+          duration: 0.8,
+          ease: "easeInOut"
+        }}
+      />
 
-      <div className="px-8 py-40 lg:px-20 lg:py-12 flex flex-col justify-between lg:h-[1080px]">
-        {/* content  */}
-        <div className="h-full flex flex-col lg:justify-between">
-          {/* navbar  */}
-          <div className="w-full hidden lg:iniline">
-            <p className="text-black font-bold text-center text-[10px] lg:hidden mx-auto">
-            </p>
-            <div className="w-full flex justify-end">
-              <Navbar className="text-black w-auto" />
-            </div>
+      <img />
+
+      {/* content  */}
+      <div className="h-dvh flex flex-col lg:justify-between px-8 py-16 lg:px-20 lg:py-0">
+        {/* navbar  */}
+        <div className="w-full hidden lg:iniline">
+          <p className="text-black font-bold text-center text-[10px] lg:hidden mx-auto">
+          </p>
+          <div className="w-full flex justify-end">
+            <Navbar className="text-black w-auto" />
           </div>
+        </div>
 
+        <motion.div
+          initial={{ y: -30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ delay: .8, duration: 1, ease: "easeOut" }}
+        >
           <div className="flex flex-col lg:py-20">
             <div className="font-display text-primary flex flex-col items-center lg:items-start">
               <p className="text-[25px] lg:text-[46px]">WHAT IS</p>
@@ -31,35 +74,6 @@ export function WhatIsIgniteSection() {
               <p className="uppercase text-center lg:text-left">
                 Ignite<CopyrightIcon className="inline ml-0.5 mb-3 lg:ml-1 lg:mb-5 size-2 lg:size-4" /> Algiers is a cultural public speaking event based on an international concept, originally developed in the United States and present in 350 cities worldwide.
               </p>
-
-              {/* <p className="text-black/70 font-medium"> */}
-              {/*   IGNITE IS A HIGH-ENERGY GATHERING BUILT AROUND MOMENTUM, WHERE */}
-              {/*   <span className="font-bold text-black">PEOPLE SHOW UP</span> */}
-              {/*   HUNGRY TO LEVEL UP, COLLIDE WITH */}
-              {/*   <span className="font-bold text-black">NEW IDEAS</span>, */}
-              {/*   AND LEAVE WITH A FIRE THEY DIDN'T WALK IN WITH. IT'S THE KIND OF */}
-              {/*   <span className="font-bold text-black">EVENT</span> */}
-              {/*   THAT DOESN'T WASTE TIME ON FLUFF— */}
-              {/*   <span className="font-bold text-black">EVERYTHING</span> */}
-              {/*   IS DESIGNED TO JOLT YOU OUT OF AUTOPILOT. */}
-              {/*   <span className="font-bold text-black">SPEAKERS DROP HARD TRUTHS</span> */}
-              {/*   INSTEAD OF MOTIVATIONAL SUGAR, */}
-              {/*   <span className="font-bold text-black">WORKSHOPS</span> */}
-              {/*   PUSH YOU TO ACTUALLY BUILD INSTEAD OF PASSIVELY WATCH, AND THE ATMOSPHERE FEELS LIKE A MIX OF ADRENALINE, CREATIVITY, AND SLIGHTLY */}
-              {/*   <span className="font-bold text-black">CHAOTIC AMBITION</span>. */}
-              {/*   WHETHER YOU COME TO */}
-              {/*   <span className="font-bold text-black">NETWORK</span>, */}
-              {/*   LAUNCH SOMETHING, FIND */}
-              {/*   <span className="font-bold text-black">COLLABORATORS</span>, */}
-              {/*   OR JUST GET PUNCHED IN THE BRAIN BY */}
-              {/*   <span className="font-bold text-black">NEW PERSPECTIVES</span>, */}
-              {/*   IGNITE HITS YOU WITH THE SENSE THAT EVERYONE IN THE ROOM IS TRYING TO */}
-              {/*   <span className="font-bold text-black">MAKE SOMETHING REAL HAPPEN</span> */}
-              {/*   TODAY, NOT "SOMEDAY." */}
-              {/*   <span className="font-bold text-black">IT'S RAW, FAST, INTENSE</span>, */}
-              {/*   AND ENGINEERED TO LEAVE YOU WITH THE UNCOMFORTABLE BUT ADDICTIVE FEELING THAT YOU SHOULD BE DOING MORE—AND THAT */}
-              {/*   <span className="font-bold text-black">YOU ACTUALLY CAN.</span> */}
-              {/* </p> */}
 
               <p className="text-black/90 font-medium uppercase text-center lg:text-left">
                 Organized for the
@@ -81,18 +95,21 @@ export function WhatIsIgniteSection() {
             </div>
 
             <div className="w-full flex justify-center lg:justify-end mt-10 lg:mt-20">
-              <Button color="red">REGISTER TO SPEAK AT IGNITE</Button>
+              <Button color="red" onClick={() => setSection(4)}>REGISTER TO SPEAK AT IGNITE</Button>
             </div>
-
           </div>
+        </motion.div>
+      </div>
 
-
-          {/* footer  */}
+      <motion.div
+        initial={{ y: 0, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ delay: .5, duration: 1, ease: "easeOut" }}
+      >
+        <div className="w-full flex justify-center lg:justify-between items-end pb-6 px-8 lg:pb-10 lg:px-20">
+          <Logos color="black" />
         </div>
-      </div>
-      <div className="w-full flex justify-center lg:justify-between items-end pb-6 px-8 lg:pb-10 lg:px-20">
-        <Logos color="black" />
-      </div>
+      </motion.div>
     </div>
   )
 }

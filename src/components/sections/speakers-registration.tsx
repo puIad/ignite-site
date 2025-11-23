@@ -8,7 +8,16 @@ import { Logos } from "../ui/logos";
 import { TimeLocationTag } from "../ui/time-location-tag";
 import { useEffect, useRef } from "react";
 
-export function SpeakersRegistration() {
+export function SpeakersRegistration({ section }: { section: number }) {
+  const animateValue = section >= 4 ? {
+    opacity: '100%',
+    "--inner": "100%",
+    "--outer": "100%",
+  } : {
+    opacity: '40%',
+    "--inner": "30%",
+    "--outer": "60%",
+  }
   const lang = formStore((state) => state.lang);
   const step = formStore((state) => state.step);
   const setStep = formStore((state) => state.setStep);
@@ -101,14 +110,11 @@ export function SpeakersRegistration() {
           maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
           WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
         }}
-        whileInView={{
-          "--inner": "100%",
-          "--outer": "100%",
-        }}
+        animate={animateValue}
         transition={{
-          delay: 1.2,
-          duration: 1,
-          ease: "easeInOut"
+          delay: 0,
+          duration: 2,
+          ease: "easeIn"
         }}
       />
       <motion.img
@@ -120,14 +126,11 @@ export function SpeakersRegistration() {
           maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
           WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
         }}
-        whileInView={{
-          "--inner": "100%",
-          "--outer": "100%",
-        }}
+        animate={animateValue}
         transition={{
-          delay: 0.8,
-          duration: 0.8,
-          ease: "easeInOut"
+          delay: 0,
+          duration: 2,
+          ease: "easeIn"
         }}
       />
 

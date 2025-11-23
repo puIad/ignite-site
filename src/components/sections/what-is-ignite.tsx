@@ -4,7 +4,16 @@ import { Logos } from "../ui/logos"
 import { Navbar } from "../ui/navbar"
 import { motion } from "motion/react"
 
-export function WhatIsIgniteSection({ setSection }: { setSection: (section: number) => void }) {
+export function WhatIsIgniteSection({ section, setSection }: { section: number, setSection: (section: number) => void }) {
+  const animateValue = section >= 2 ? {
+    opacity: '100%',
+    "--inner": "100%",
+    "--outer": "100%",
+  } : {
+    opacity: '40%',
+    "--inner": "30%",
+    "--outer": "60%",
+  }
   return (
     <div id="what-is-ignite" className="relative h-dvh w-full flex flex-col justify-between max-h-screen overflow-clip">
       <motion.img
@@ -16,14 +25,14 @@ export function WhatIsIgniteSection({ setSection }: { setSection: (section: numb
           maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
           WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
         }}
-        whileInView={{
+        animate={section === 3 && {
           "--inner": "100%",
           "--outer": "100%",
         }}
         transition={{
-          delay: 1.2,
-          duration: 1,
-          ease: "easeInOut"
+          delay: 0,
+          duration: 2,
+          ease: "easeIn"
         }}
       />
       <motion.img
@@ -35,14 +44,11 @@ export function WhatIsIgniteSection({ setSection }: { setSection: (section: numb
           maskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
           WebkitMaskImage: "radial-gradient(circle, black var(--inner), transparent var(--outer))",
         }}
-        whileInView={{
-          "--inner": "100%",
-          "--outer": "100%",
-        }}
+        animate={animateValue}
         transition={{
-          delay: 0.8,
-          duration: 0.8,
-          ease: "easeInOut"
+          delay: 0,
+          duration: 2,
+          ease: "easeIn"
         }}
       />
 

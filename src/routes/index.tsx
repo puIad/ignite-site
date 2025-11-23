@@ -20,7 +20,7 @@ function App() {
     <div className="relative flex flex-col items-center justify-center max-w-screen">
       <HeroSection setSection={setSection} />
       <AnimatedSection index={2} section={section} setSection={setSection}>
-        <WhatIsIgniteSection setSection={setSection} />
+        <WhatIsIgniteSection section={section} setSection={setSection} />
       </AnimatedSection>
 
       <AnimatedSection index={3} section={section} setSection={setSection}>
@@ -28,7 +28,7 @@ function App() {
       </AnimatedSection>
 
       <AnimatedSection index={4} section={section} setSection={setSection}>
-        <SpeakersRegistration />
+        <SpeakersRegistration section={section} />
       </AnimatedSection>
 
       <AnimatedSection index={5} section={section} setSection={setSection}>

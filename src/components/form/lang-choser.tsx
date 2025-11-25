@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { formStore, uiTexts } from "./schema"
-import { useNavigate, useRouter } from "@tanstack/react-router"
+import { useRouter } from "@tanstack/react-router"
 export function LangChoser() {
   const setLang = formStore(state => state.setLang)
   const setStep = formStore(state => state.setStep)
@@ -10,7 +10,7 @@ export function LangChoser() {
   return (
     <div>
       <div className="h-full flex flex-col items-start">
-        <p className={`text-[20px] lg:text-[65px] text-primary font-bold uppercase font-display mb-5 lg:mb-10 ${lang === 'AR' ? 'font-splart' : ''}`}>{uiTexts[lang ?? 'EN'].chooseLanguage}</p>
+        <p className={`text-[20px] lg:text-[48px] text-primary font-bold uppercase font-display mb-5 lg:mb-10 ${lang === 'AR' ? 'font-splart' : ''}`}>Choose a language</p>
 
         <div className="w-full lg:w-[850px] flex flex-col gap-4 items-start">
           <button
@@ -51,7 +51,7 @@ export function LangChoser() {
             onClick={() => {
               if (lang) {
                 setStep(1)
-                router.navigate({ to: '/register-speaker' })
+                router.navigate({ to: '/buy-ticket' })
               }
             }}
           >

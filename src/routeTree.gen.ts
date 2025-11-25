@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionSuccessRouteImport } from './routes/transaction-success'
 import { Route as TransactionFailRouteImport } from './routes/transaction-fail'
-import { Route as RegisterSpeakerRouteImport } from './routes/register-speaker'
+import { Route as TestBuyRouteImport } from './routes/test-buy'
 import { Route as BuyTicketRouteImport } from './routes/buy-ticket'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -25,9 +25,9 @@ const TransactionFailRoute = TransactionFailRouteImport.update({
   path: '/transaction-fail',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RegisterSpeakerRoute = RegisterSpeakerRouteImport.update({
-  id: '/register-speaker',
-  path: '/register-speaker',
+const TestBuyRoute = TestBuyRouteImport.update({
+  id: '/test-buy',
+  path: '/test-buy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuyTicketRoute = BuyTicketRouteImport.update({
@@ -44,14 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/buy-ticket': typeof BuyTicketRoute
-  '/register-speaker': typeof RegisterSpeakerRoute
+  '/test-buy': typeof TestBuyRoute
   '/transaction-fail': typeof TransactionFailRoute
   '/transaction-success': typeof TransactionSuccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/buy-ticket': typeof BuyTicketRoute
-  '/register-speaker': typeof RegisterSpeakerRoute
+  '/test-buy': typeof TestBuyRoute
   '/transaction-fail': typeof TransactionFailRoute
   '/transaction-success': typeof TransactionSuccessRoute
 }
@@ -59,7 +59,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/buy-ticket': typeof BuyTicketRoute
-  '/register-speaker': typeof RegisterSpeakerRoute
+  '/test-buy': typeof TestBuyRoute
   '/transaction-fail': typeof TransactionFailRoute
   '/transaction-success': typeof TransactionSuccessRoute
 }
@@ -68,21 +68,21 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/buy-ticket'
-    | '/register-speaker'
+    | '/test-buy'
     | '/transaction-fail'
     | '/transaction-success'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/buy-ticket'
-    | '/register-speaker'
+    | '/test-buy'
     | '/transaction-fail'
     | '/transaction-success'
   id:
     | '__root__'
     | '/'
     | '/buy-ticket'
-    | '/register-speaker'
+    | '/test-buy'
     | '/transaction-fail'
     | '/transaction-success'
   fileRoutesById: FileRoutesById
@@ -90,7 +90,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BuyTicketRoute: typeof BuyTicketRoute
-  RegisterSpeakerRoute: typeof RegisterSpeakerRoute
+  TestBuyRoute: typeof TestBuyRoute
   TransactionFailRoute: typeof TransactionFailRoute
   TransactionSuccessRoute: typeof TransactionSuccessRoute
 }
@@ -111,11 +111,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TransactionFailRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/register-speaker': {
-      id: '/register-speaker'
-      path: '/register-speaker'
-      fullPath: '/register-speaker'
-      preLoaderRoute: typeof RegisterSpeakerRouteImport
+    '/test-buy': {
+      id: '/test-buy'
+      path: '/test-buy'
+      fullPath: '/test-buy'
+      preLoaderRoute: typeof TestBuyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/buy-ticket': {
@@ -138,7 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BuyTicketRoute: BuyTicketRoute,
-  RegisterSpeakerRoute: RegisterSpeakerRoute,
+  TestBuyRoute: TestBuyRoute,
   TransactionFailRoute: TransactionFailRoute,
   TransactionSuccessRoute: TransactionSuccessRoute,
 }

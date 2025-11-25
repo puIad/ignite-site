@@ -47,7 +47,7 @@ function Label({ children, className }: { className?: string, children: string }
       lang={isAr ? "ar" : undefined}
       dir={isAr ? "rtl" : undefined}
       className={cn(
-        "pb-1.5 lg:pb-2 text-[15px] lg:text-[16px] font-bold text-black text-wrap max-w-[250px] lg:max-w-[400px]",
+        "pb-1.5 lg:pb-2 text-[15px] lg:text-[16px] font-bold text-black text-wrap max-w-[250px] lg:max-w-[500px]",
         className
       )}
     >

@@ -1,41 +1,76 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { formStore } from '@/components/form/schema';
+import { Logos } from '@/components/ui/logos';
+import { useRouter } from '@tanstack/react-router'
+import { AnimatePresence, motion } from "motion/react"
+import { BuyTicketFormOne } from '@/components/form/buy-ticket-form-1';
+import { BuyTicketFormTwo } from '@/components/form/buy-ticket-form-2';
 
 export const Route = createFileRoute('/buy-ticket')({
   component: RouteComponent,
 })
 
-function RouteComponent() {
-  console.log()
-  const api_endpoint = import.meta.env.VITE_API_URL
-  const transaction_uuid = crypto.randomUUID()
-  const url = `https://dev.paypart.dz/app/guest?next=newTransaction
-&sellerDelivery=false
-&pickFromStore=false
-&InvitationUuid=RSj29ba3
-&deliveryWilaya=16
-&deliveryCommune=
-&deliveryPlace=
-&buyerRemark=
-&successUrl=http://localhost:3005/transaction-success?tr=${transaction_uuid}
-&failUrl=http://localhost:3005/buy-ticket
-&redirectionTag=${transaction_uuid}
-&name=&email=&firstName=J&phoneNumber=`
-  async function handleSubmit() {
-    await fetch(`${api_endpoint}/post-payment`, {
-      method: "POST",
-      headers: {
-        'Content-Type': "application/json"
-      },
-      body: JSON.stringify({ productId: 'TEST_TAG_001' })
-    }).then(async res => console.log(await res.json()))
-  }
+
+export function RouteComponent() {
+  const router = useRouter()
+
+  const lang = formStore((state) => state.lang);
+  const step = formStore((state) => state.step);
+  const setStep = formStore((state) => state.setStep);
+
+  if (!lang) router.navigate({ to: '/' })
+  if (!lang) setStep(0);
 
   return (
-    <div className='h-screen w-screen flex items-center justify-center flex-col gap-5'>
-      <button onClick={handleSubmit}>test</button>
-      <a href={url}>
-        checkout
-      </a>
+    <div
+      style={{ overflowY: "scroll" }}
+      className="allow-scroll h-dvh relative flex flex-col justify-between w-screen overflow-y-scroll" id={"speakers-registration"}>
+      <motion.img
+        src="/images/noisy-red-mobile.png"
+        className="absolute lg:hidden h-full object-cover top-0 left-0 -z-10"
+      />
+      <motion.img
+        src="/images/noisy-red-desktop.png"
+        className="absolute hidden h-full object-cover top-0 left-0 lg:inline -z-10"
+      />
+
+      <motion.div
+        initial={{ y: -30, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0, duration: 1, ease: "easeOut" }}
+        className="h-full w-full px-4 py-0 lg:px-20 lg:py-8 flex flex-col justify-start overflow-y-scroll">
+
+        <div className="h-full w-full flex flex-col items-center lg:justify-center gap-6 lg:gap-3 overflow-y-scroll">
+          <p className={`text-[41px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0 ${lang === 'AR' ? 'font-splart' : ''}`}>
+            BUY YOUR TICKET
+          </p>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={step}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              transition={{ duration: .3 }}
+            >
+              <div
+                id="speakers-registration-form"
+                className="h-full bg-primary/4 border-primary/40 border lg:px-60 py-10 lg:py-10 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center"
+              >
+                {step === 1 && <BuyTicketFormOne />}
+                {step === 2 && <BuyTicketFormTwo />}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </motion.div>
+
+      <div className="my-10" >
+        <Logos color="black" />
+      </div>
+      {/* <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20"> */}
+      {/*   <TimeLocationTag /> */}
+      {/* </div> */}
     </div>
-  )
+  );
 }

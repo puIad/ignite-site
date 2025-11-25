@@ -18,83 +18,9 @@ export function SpeakersRegistration({ section }: { section: number }) {
   const step = formStore((state) => state.step);
   const setStep = formStore((state) => state.setStep);
   if (!lang) setStep(0);
-  // keep the form wrapper's lang/dir in sync with the selected language and current step
   useEffect(() => {
-    const wrapper = document.getElementById("speakers-registration-form");
-    if (!wrapper) return;
-    if (step === 0) {
-      wrapper.removeAttribute("dir");
-      wrapper.classList.remove("lang-ar");
-      wrapper.classList.remove("lang-fr");
-      wrapper.classList.remove("lang-en");
-      return;
-    }
-
-    // set only direction on the wrapper; mark the wrapper with a CSS class so
-    // we know which language is active for layout. Actual Madani font will
-    // be applied only to elements with lang="ar" (see App.css).
-    if (lang === "AR") {
-      wrapper.setAttribute("dir", "rtl");
-      wrapper.classList.add("lang-ar");
-      wrapper.classList.remove("lang-fr");
-      wrapper.classList.remove("lang-en");
-    } else if (lang === "FR") {
-      wrapper.setAttribute("dir", "ltr");
-      wrapper.classList.add("lang-fr");
-      wrapper.classList.remove("lang-ar");
-      wrapper.classList.remove("lang-en");
-    } else {
-      wrapper.setAttribute("dir", "ltr");
-      wrapper.classList.add("lang-en");
-      wrapper.classList.remove("lang-ar");
-      wrapper.classList.remove("lang-fr");
-    }
   }, [step, lang]);
-  // when the step changes, smoothly align and focus the relevant control
-  // NOTE: track previous step to avoid running on initial mount (which caused
-  // the language chooser to be focused by default).
-  const prevStepRef = useRef<number | null>(null);
-  useEffect(() => {
-    const wrapper = document.getElementById("speakers-registration-form");
-    if (!wrapper) return;
 
-    const prev = prevStepRef.current;
-
-    // If we transitioned to step 0 from a non-zero step, focus the chooser.
-    if (step === 0 && prev !== null && prev !== 0) {
-      const chooser = document.getElementById("lang-choser");
-      if (!chooser) return;
-      const firstButton = chooser.querySelector("button") as HTMLElement | null;
-      try {
-        if (firstButton) firstButton.focus({ preventScroll: true } as any);
-      } catch (e) {
-        if (firstButton) firstButton.focus();
-      }
-
-      prevStepRef.current = step;
-      return;
-    }
-
-    // Only run the form-step focus/scroll when we are on a form step (1..3)
-    if (step > 0) {
-      // wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
-      const selector = 'input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), select:not([disabled])';
-      const first = wrapper.querySelector(selector) as HTMLElement | null;
-      if (!first) {
-        prevStepRef.current = step;
-        return;
-      }
-
-      try {
-        (first as HTMLElement).focus({ preventScroll: true } as any);
-      } catch (e) {
-        (first as HTMLElement).focus();
-      }
-
-    }
-
-    prevStepRef.current = step;
-  }, [step]);
   return (
     <div className="relative flex flex-col justify-between h-dvh w-screen" id={"speakers-registration"}>
       <motion.img
@@ -163,9 +89,6 @@ export function SpeakersRegistration({ section }: { section: number }) {
       <div className="my-4" >
         <Logos color="black" />
       </div>
-      {/* <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20"> */}
-      {/*   <TimeLocationTag /> */}
-      {/* </div> */}
     </div>
   );
 }

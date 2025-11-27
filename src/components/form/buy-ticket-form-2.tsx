@@ -20,7 +20,7 @@ export function BuyTicketFormTwo() {
   const transaction_uuid = crypto.getRandomValues(new Uint8Array(6))
     .reduce((s, b) => s + b.toString(16).padStart(2, '0'), '');
 
-  async function handleSubmit() {
+  async function handleBuyOnline() {
     const res = await fetch(`${api_endpoint}/handle-buy-submit`, {
       method: "POST",
       headers: {
@@ -48,9 +48,11 @@ export function BuyTicketFormTwo() {
   return (
     <div className="flex flex-col items-center justify-center gap-8 px-11">
       <div className="flex flex-col gap-6 text-primary">
-        <a href={"/"} className="px-6 py-2.5 text-[18px] font-bold border-primary border uppercase hover:scale-101 hover:bg-primary/3 transition-all duration-300 ease-in-out">Buy online with your card</a>
-
-        <button onClick={handleSubmit}
+        <button onClick={handleBuyOnline}
+          className="px-6 py-2.5 text-[18px] font-bold border-primary border uppercase hover:scale-101 hover:bg-primary/3 transition-all duration-300 ease-in-out">
+          Buy online with your card
+        </button>
+        <button onClick={handleBuyOnline}
           className="px-6 py-2.5 text-[18px] font-bold border-primary border uppercase hover:scale-101 hover:bg-primary/3 transition-all duration-300 ease-in-out">
           Buy from one of our stands
         </button>

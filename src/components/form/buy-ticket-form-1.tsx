@@ -29,13 +29,20 @@ export function BuyTicketFormOne() {
 
   const form = useForm({
     defaultValues: {
-      email: partOne.email ?? "ahmed@gmail.com",
-      first_name: partOne.first_name ?? "ahmed",
-      last_name: partOne.last_name ?? "hassaine",
-      phone: partOne.phone ?? "05123213",
-      how_heard: partOne.how_heard ?? "from the internet my friend",
-      which_lang: partOne.which_lang ?? "EN",
-      anything_toknow: partOne.anything_toknow ?? "nothing",
+      email: "ahmedhassaine432@gmail.com",
+      first_name: "ahmed",
+      last_name: "hassaine",
+      phone: "05123213",
+      how_heard: "from the internet my friend",
+      which_lang: "EN",
+      anything_toknow: "nothing",
+      // email: partOne.email ?? "ahmed@gmail.com",
+      // first_name: partOne.first_name ?? "ahmed",
+      // last_name: partOne.last_name ?? "hassaine",
+      // phone: partOne.phone ?? "05123213",
+      // how_heard: partOne.how_heard ?? "from the internet my friend",
+      // which_lang: partOne.which_lang ?? "EN",
+      // anything_toknow: partOne.anything_toknow ?? "nothing",
     },
     onSubmit: async ({ value }) => {
       const partOneData: SchemaPartOne = {

@@ -24,7 +24,7 @@ export function RouteComponent() {
   return (
     <div
       style={{ overflowY: "scroll" }}
-      className="allow-scroll h-dvh relative flex flex-col justify-between w-screen overflow-y-scroll" id={"speakers-registration"}>
+      className="allow-scroll h-dvh relative flex flex-col justify-between lg:justify-center w-screen overflow-y-scroll" id={"speakers-registration"}>
       <motion.img
         src="/images/noisy-red-mobile.png"
         className="absolute lg:hidden h-full object-cover top-0 left-0 -z-10"
@@ -41,7 +41,7 @@ export function RouteComponent() {
         className="h-full w-full px-4 py-0 lg:px-20 lg:py-8 flex flex-col justify-start overflow-y-scroll">
 
         <div className="h-full w-full flex flex-col items-center lg:justify-center gap-6 lg:gap-3 overflow-y-scroll">
-          <p className={`text-[41px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0 ${lang === 'AR' ? 'font-splart' : ''}`}>
+          <p className="text-[41px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0">
             BUY YOUR TICKET
           </p>
 
@@ -55,7 +55,7 @@ export function RouteComponent() {
             >
               <div
                 id="speakers-registration-form"
-                className="h-full bg-primary/4 border-primary/40 border lg:px-60 py-10 lg:py-10 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center"
+                className="h-[70dvh] bg-primary/4 border-primary/40 border lg:px-60 py-10 lg:py-10 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center overflow-y-scroll"
               >
                 {step === 1 && <BuyTicketFormOne />}
                 {step === 2 && <BuyTicketFormTwo />}
@@ -65,7 +65,7 @@ export function RouteComponent() {
         </div>
       </motion.div>
 
-      <div className="my-10" >
+      <div className="mb-10 mt-5" >
         <Logos color="black" />
       </div>
       {/* <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20"> */}

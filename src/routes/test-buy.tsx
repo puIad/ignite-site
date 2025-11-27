@@ -26,9 +26,22 @@ function RouteComponent() {
                 &email=${partOne.email}
                 &firstName=${partOne.first_name}
                 &phoneNumber=${partOne.phone}`
+
+  async function postPayment() {
+    await fetch(`${api_endpoint}/post-payment`, {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify({ transactionId: transaction_uuid })
+    }).then(async res => console.log(await res.json()))
+  }
   return (
     <div className="h-dvh w-screen flex items-center justify-center">
-      <a href={url2} className='text-black text-3xl'>checkout</a>
+      <button onClick={postPayment}
+        className="px-6 py-2.5 text-[18px] font-bold border-primary border uppercase hover:scale-101 hover:bg-primary/3 transition-all duration-300 ease-in-out">
+        Buy from one of our stands
+      </button>
     </div>
   )
 

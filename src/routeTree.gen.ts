@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionSuccessRouteImport } from './routes/transaction-success'
 import { Route as TransactionFailRouteImport } from './routes/transaction-fail'
 import { Route as TestBuyRouteImport } from './routes/test-buy'
+import { Route as ScanBarcodeRouteImport } from './routes/scan-barcode'
 import { Route as BuyTicketRouteImport } from './routes/buy-ticket'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const TestBuyRoute = TestBuyRouteImport.update({
   path: '/test-buy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScanBarcodeRoute = ScanBarcodeRouteImport.update({
+  id: '/scan-barcode',
+  path: '/scan-barcode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BuyTicketRoute = BuyTicketRouteImport.update({
   id: '/buy-ticket',
   path: '/buy-ticket',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/buy-ticket': typeof BuyTicketRoute
+  '/scan-barcode': typeof ScanBarcodeRoute
   '/test-buy': typeof TestBuyRoute
   '/transaction-fail': typeof TransactionFailRoute
   '/transaction-success': typeof TransactionSuccessRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/buy-ticket': typeof BuyTicketRoute
+  '/scan-barcode': typeof ScanBarcodeRoute
   '/test-buy': typeof TestBuyRoute
   '/transaction-fail': typeof TransactionFailRoute
   '/transaction-success': typeof TransactionSuccessRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/buy-ticket': typeof BuyTicketRoute
+  '/scan-barcode': typeof ScanBarcodeRoute
   '/test-buy': typeof TestBuyRoute
   '/transaction-fail': typeof TransactionFailRoute
   '/transaction-success': typeof TransactionSuccessRoute
@@ -68,6 +77,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/buy-ticket'
+    | '/scan-barcode'
     | '/test-buy'
     | '/transaction-fail'
     | '/transaction-success'
@@ -75,6 +85,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/buy-ticket'
+    | '/scan-barcode'
     | '/test-buy'
     | '/transaction-fail'
     | '/transaction-success'
@@ -82,6 +93,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/buy-ticket'
+    | '/scan-barcode'
     | '/test-buy'
     | '/transaction-fail'
     | '/transaction-success'
@@ -90,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BuyTicketRoute: typeof BuyTicketRoute
+  ScanBarcodeRoute: typeof ScanBarcodeRoute
   TestBuyRoute: typeof TestBuyRoute
   TransactionFailRoute: typeof TransactionFailRoute
   TransactionSuccessRoute: typeof TransactionSuccessRoute
@@ -118,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestBuyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scan-barcode': {
+      id: '/scan-barcode'
+      path: '/scan-barcode'
+      fullPath: '/scan-barcode'
+      preLoaderRoute: typeof ScanBarcodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/buy-ticket': {
       id: '/buy-ticket'
       path: '/buy-ticket'
@@ -138,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BuyTicketRoute: BuyTicketRoute,
+  ScanBarcodeRoute: ScanBarcodeRoute,
   TestBuyRoute: TestBuyRoute,
   TransactionFailRoute: TransactionFailRoute,
   TransactionSuccessRoute: TransactionSuccessRoute,

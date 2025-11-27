@@ -59,12 +59,12 @@ export function SpeakersRegistration({ section }: { section: number }) {
       <motion.div
         initial={{ y: -30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        transition={{ delay: 2, duration: 1, ease: "easeOut" }}
-        className="h-full w-full px-4 py-0 lg:px-20 lg:py-8 flex flex-col justify-start">
+        transition={{ delay: 0, duration: 1, ease: "easeOut" }}
+        className="h-full w-full px-4 py-0 lg:px-20 lg:py-8 flex flex-col justify-start overflow-y-scroll">
 
-        <div className="h-full w-full flex flex-col gap-6 lg:gap-10">
-          <p className={`text-[41px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0 ${lang === 'AR' ? 'font-splart' : ''}`}>
-            SPEAKERS REGISTRATION
+        <div className="h-full w-full flex flex-col items-center lg:justify-center gap-6 lg:gap-3 overflow-y-scroll">
+          <p className="text-[41px] lg:text-[65px] font-display text-primary text-center mt-10 lg:mt-0">
+            BUY YOUR TICKET
           </p>
 
           <AnimatePresence mode="wait">
@@ -77,7 +77,7 @@ export function SpeakersRegistration({ section }: { section: number }) {
             >
               <div
                 id="speakers-registration-form"
-                className="bg-primary/4 border-primary/40 border h-[50vh] lg:h-[70vh] overflow-y-scroll lg:px-50 py-10 lg:py-20 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center"
+                className="h-[70dvh] bg-primary/4 border-primary/40 border lg:px-60 py-10 lg:py-10 backdrop-blur-3xl w-full transition-all duration-300 ease-out flex justify-center overflow-y-scroll"
               >
                 <LangChoser />
               </div>
@@ -86,9 +86,12 @@ export function SpeakersRegistration({ section }: { section: number }) {
         </div>
       </motion.div>
 
-      <div className="my-4" >
+      <div className="mb-10 mt-5" >
         <Logos color="black" />
       </div>
+      {/* <div className="w-full flex justify-between lg:justify-between items-end pb-6 px-3 lg:px-20"> */}
+      {/*   <TimeLocationTag /> */}
+      {/* </div> */}
     </div>
   );
 }

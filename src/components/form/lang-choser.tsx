@@ -10,7 +10,7 @@ export function LangChoser() {
   return (
     <div>
       <div className="h-full flex flex-col items-start">
-        <p className={`text-[20px] lg:text-[48px] text-primary font-bold uppercase font-display mb-5 lg:mb-10 ${lang === 'AR' ? 'font-splart' : ''}`}>Choose a language</p>
+        <p className="text-[20px] lg:text-[48px] text-primary font-bold uppercase font-display mb-5 lg:mb-10">Choose a language</p>
 
         <div className="w-full lg:w-[850px] flex flex-col gap-4 items-start">
           <button

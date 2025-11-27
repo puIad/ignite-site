@@ -45,19 +45,22 @@ function AnimatedSection({ index, section, setSection, children }: { index: numb
   const scroll = useTransform(attemptedScroll, [0, isMobile ? 100 : 400, isMobile ? 101 : 401], [0, 0.6, 1])
 
   const animatedHeight = useSpring(scroll, {
-    stiffness: 70,
-    damping: 20,
-    restDelta: 0.001
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+    restSpeed: 0.001
   })
 
   const heightVelocity = useVelocity(animatedHeight)
-  const topValue = useTransform(animatedHeight, [0, 1], ["100%", "0%"])
+  const yValue = useTransform(animatedHeight, [0, 1], ["100vh", "0vh"])
   const animatedOpacity = useTransform(animatedHeight, [0, 0.7, 1], ["0%", "0%", "100%"])
 
+
   const pathD = useTransform(
-    () => {
-      const topY = (1 - animatedHeight.get()) * 100
-      const curve = heightVelocity.get() * (isMobile ? 3 : 4)
+    animatedHeight,
+    (height) => {
+      const topY = (1 - height) * 100
+      const curve = heightVelocity.get() * (isMobile ? 3 : 6)
       return `M 0 100 L 0 ${topY} Q 50 ${topY - curve} 100 ${topY} L 100 100 Z`
     }
   )
@@ -70,7 +73,10 @@ function AnimatedSection({ index, section, setSection, children }: { index: numb
     }
   })
 
+
+  const shouldListen = index === section || index === section + 1 || index === section - 1
   useEffect(() => {
+    if (!shouldListen) return;
     const limit = isMobile ? 201 : 401
     let wheelTimeout: NodeJS.Timeout;
 
@@ -155,7 +161,13 @@ function AnimatedSection({ index, section, setSection, children }: { index: numb
     <>
       <motion.div
         className={cn('h-screen absolute w-screen')}
-        style={{ opacity: animatedOpacity, top: topValue, zIndex: 20 + index * 50 }}
+        style={{
+          opacity: animatedOpacity,
+          y: index === section ? "0vh" : yValue,
+          zIndex: 20 + index * 50,
+          willChange: "transform, opacity",
+          contain: "layout paint"
+        }}
       >
         {children}
       </motion.div>

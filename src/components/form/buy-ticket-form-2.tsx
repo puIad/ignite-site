@@ -35,7 +35,7 @@ export function BuyTicketFormTwo() {
           transactionId: transaction_uuid,
           isPaymentOnline: true,
           userInfo: {
-            firstName: partOne.email,
+            firstName: partOne.first_name,
             lastName: partOne.last_name,
             email: partOne.email,
             phoneNumber: partOne.phone

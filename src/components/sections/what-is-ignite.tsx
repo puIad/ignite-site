@@ -100,7 +100,7 @@ export function WhatIsIgniteSection({ section, setSection }: { section: number, 
             </div>
 
             <div className="w-full flex justify-center lg:justify-end mt-10 lg:mt-20">
-              <Button color="red" className="opacity-70 pointer-events-none">TICKET SALES COMING SOON!</Button>
+              <Button color="red" onClick={() => setSection(4)}>REGISTER TO SPEAK AT IGNITE</Button>
             </div>
           </div>
         </motion.div>

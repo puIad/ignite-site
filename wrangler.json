@@ -8,7 +8,7 @@
   "env": {
     "production": {
       "vars": {
-        "VITE_API_URL": "https://ignite.ahmed-hassaine432.workers.dev"
+        "VITE_API_URL": "https://ignite-production.ahmed-hassaine432.workers.dev"
       }
     }
   }

@@ -71,11 +71,6 @@ function RouteComponent() {
           <p className="text-[18px] lg:text-[24px] text-primary/80 max-w-2xl">
             Your payment has been processed successfully. You'll receive your ticket via email shortly.
           </p>
-          {tr && (
-            <p className="text-[14px] lg:text-[16px] text-primary/60 font-mono">
-              Transaction ID: {tr}
-            </p>
-          )}
         </motion.div>
 
         {/* Action Buttons */}

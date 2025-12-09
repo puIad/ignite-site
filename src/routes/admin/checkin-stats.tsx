@@ -1,13 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import { useMutation, useQuery } from 'convex/react'
-import { Stopwatch } from '@/components/Stopwatch'
-import { cn } from '@/lib/utils'
+import { useQuery } from 'convex/react'
 
 export const Route = createFileRoute('/admin/checkin-stats')({
   component: RouteComponent,
 })
+
+// ============ CONFIGURABLE VARIABLES ============
+const SQUARE_SIZE = 30 // Size of each square in pixels
+const SQUARE_GAP = 8 // Gap between squares in pixels
+const NUMBER_OF_VISITORS = 700 // Total expected number of visitors
+// ================================================
 
 function RouteComponent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -68,191 +72,148 @@ function RouteComponent() {
 }
 
 function Page() {
-  const scoreboard = useQuery(api.speakers.getScoreboard)
-  const updateSpeakerStatus = useMutation(api.speakers.updateSpeakerStatus)
-  const updateVotingStatus = useMutation(api.speakers.updateVotingStatus)
+  const visitors = useQuery(api.visitors.getAllVisitors)
 
-  if (!scoreboard) {
+  if (!visitors) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-xl font-semibold text-gray-600">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="text-xl font-semibold text-white">Loading...</div>
       </div>
     )
   }
 
+  // Type 1: Visitors NOT in guest mode (have actual email)
+  const type1Visitors = visitors.filter(v => !v.guestMode)
+  
+  // Type 2: Visitors in guest mode (registered through system)
+  const type2Visitors = visitors.filter(v => v.guestMode)
+  
+  // Type 3: Imaginary guests (manually specified number)
+  // Calculated as: NUMBER_OF_VISITORS - (type1 + type2)
+  const type3Count = Math.max(0, NUMBER_OF_VISITORS - type1Visitors.length - type2Visitors.length)
+
+  const totalSquares = NUMBER_OF_VISITORS
+
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gray-50">
+    <div className="min-h-screen p-4 md:p-8 bg-gray-900">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Speaker Management</h1>
+        <h1 className="text-3xl font-bold text-white mb-6">Check-in Stats</h1>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-100 border-b-2 border-gray-200">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Speaker
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Status & Metrics
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {scoreboard.map(({ speaker, score, votesCount }) => (
-                  <tr key={speaker._id} className="hover:bg-gray-50 transition-colors">
-                    {/* Column 1: Speaker Info */}
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-gray-200 shrink-0">
-                          <img
-                            src='/images/avatar.png'
-                            alt={speaker.info.map(i => i.fullName).join(' & ')}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="font-semibold text-gray-800">
-                          {speaker.info.map(i => i.fullName).join(' & ')}
-                        </div>
-                      </div>
-                    </td>
+        {/* Legend */}
+        <div className="flex flex-wrap gap-6 mb-8 p-4 bg-gray-800 rounded-xl">
+          <div className="flex items-center gap-3">
+            <div 
+              className="rounded-sm" 
+              style={{ 
+                width: SQUARE_SIZE * 2, 
+                height: SQUARE_SIZE * 2, 
+                backgroundColor: '#14b8a6' 
+              }} 
+            />
+            <span className="text-white text-sm">
+              Registered (Email) - {type1Visitors.length} ({type1Visitors.filter(v => v.checkedIn).length} checked in)
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div 
+              className="rounded-sm" 
+              style={{ 
+                width: SQUARE_SIZE * 2, 
+                height: SQUARE_SIZE * 2, 
+                backgroundColor: '#a855f7' 
+              }} 
+            />
+            <span className="text-white text-sm">
+              Guest Mode - {type2Visitors.length} ({type2Visitors.filter(v => v.checkedIn).length} checked in)
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div 
+              className="rounded-sm" 
+              style={{ 
+                width: SQUARE_SIZE * 2, 
+                height: SQUARE_SIZE * 2, 
+                backgroundColor: '#6b7280' 
+              }} 
+            />
+            <span className="text-white text-sm">
+              Expected (Not Registered) - {type3Count}
+            </span>
+          </div>
+        </div>
 
-                    {/* Column 2: Status & Metrics */}
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-500 font-medium">Speaker:</span>
-                          <span className={cn(
-                            "px-3 py-1 rounded-full text-xs font-bold uppercase",
-                            speaker.status === 'SPEAKED' && "bg-green-100 text-green-700",
-                            speaker.status === 'SPEAKING' && "bg-blue-100 text-blue-700",
-                            speaker.status === 'SPEAKNT' && "bg-gray-100 text-gray-700"
-                          )}>
-                            {speaker.status === 'SPEAKNT' ? 'Not Yet' : speaker.status}
-                          </span>
-                        </div>
+        {/* Stats Summary */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-white">{NUMBER_OF_VISITORS}</div>
+            <div className="text-gray-400 text-sm">Expected Total</div>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-teal-400">{type1Visitors.length}</div>
+            <div className="text-gray-400 text-sm">Registered (Email)</div>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-purple-400">{type2Visitors.length}</div>
+            <div className="text-gray-400 text-sm">Guest Mode</div>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-yellow-400">
+              {type1Visitors.filter(v => v.checkedIn).length + type2Visitors.filter(v => v.checkedIn).length}
+            </div>
+            <div className="text-gray-400 text-sm">Total Checked In</div>
+          </div>
+        </div>
 
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-500 font-medium">Voting:</span>
-                          <span className={cn(
-                            "px-3 py-1 rounded-full text-xs font-bold uppercase",
-                            speaker.votingStatus === 'ON' && "bg-green-100 text-green-700",
-                            speaker.votingStatus === 'SOON' && "bg-yellow-100 text-yellow-700",
-                            speaker.votingStatus === 'OFF' && "bg-red-100 text-red-700"
-                          )}>
-                            {speaker.votingStatus}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center gap-4 text-sm">
-                          <div>
-                            <span className="text-gray-500 font-medium">Votes:</span>
-                            <span className="ml-2 font-semibold text-gray-800">{votesCount}</span>
-                          </div>
-                          <div>
-                            <span className="text-gray-500 font-medium">Score:</span>
-                            <span className="ml-2 font-semibold text-gray-800">{score.toFixed(2)}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-
-                    {/* Column 3: Actions */}
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col gap-3">
-                        {/* Speaker Status Controls */}
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => updateSpeakerStatus({ speakerId: speaker._id, status: 'SPEAKNT' })}
-                            className={cn(
-                              "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
-                              speaker.status === 'SPEAKNT'
-                                ? "bg-gray-700 text-white"
-                                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                            )}
-                          >
-                            NOT YET
-                          </button>
-                          <button
-                            onClick={() => updateSpeakerStatus({ speakerId: speaker._id, status: 'SPEAKING' })}
-                            className={cn(
-                              "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
-                              speaker.status === 'SPEAKING'
-                                ? "bg-blue-600 text-white"
-                                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-                            )}
-                          >
-                            SPEAKING
-                          </button>
-                          <button
-                            onClick={() => updateSpeakerStatus({ speakerId: speaker._id, status: 'SPEAKED' })}
-                            className={cn(
-                              "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
-                              speaker.status === 'SPEAKED'
-                                ? "bg-green-600 text-white"
-                                : "bg-green-100 text-green-700 hover:bg-green-200"
-                            )}
-                          >
-                            SPEAKED
-                          </button>
-                        </div>
-
-                        {/* Voting Status Controls */}
-                        <div className="flex flex-col gap-2">
-                          <div className="flex gap-2">
-                            <button
-                              onClick={() => updateVotingStatus({ speakerId: speaker._id, votingStatus: 'OFF' })}
-                              className={cn(
-                                "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
-                                speaker.votingStatus === 'OFF'
-                                  ? "bg-red-600 text-white"
-                                  : "bg-red-100 text-red-700 hover:bg-red-200"
-                              )}
-                            >
-                              OFF
-                            </button>
-                            <button
-                              onClick={() => updateVotingStatus({ speakerId: speaker._id, votingStatus: 'SOON' })}
-                              className={cn(
-                                "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
-                                speaker.votingStatus === 'SOON'
-                                  ? "bg-yellow-600 text-white"
-                                  : "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
-                              )}
-                            >
-                              SOON
-                            </button>
-                            <button
-                              onClick={() => updateVotingStatus({ speakerId: speaker._id, votingStatus: 'ON' })}
-                              className={cn(
-                                "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
-                                speaker.votingStatus === 'ON'
-                                  ? "bg-green-600 text-white"
-                                  : "bg-green-100 text-green-700 hover:bg-green-200"
-                              )}
-                            >
-                              ON
-                            </button>
-                          </div>
-
-                          {/* Stopwatch */}
-                          <div className={cn(
-                            "flex items-center gap-2 px-3 py-1.5 rounded-lg",
-                            speaker.votingStatus === 'ON' ? "bg-green-50 border border-green-200" : "bg-gray-50 border border-gray-200"
-                          )}>
-                            <span className="text-xs text-gray-600 font-medium">Timer:</span>
-                            <Stopwatch isRunning={speaker.votingStatus === 'ON'} />
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* Grid of Squares */}
+        <div className="bg-gray-800 rounded-xl p-6">
+          <h2 className="text-xl font-semibold text-white mb-4">Visitor Grid</h2>
+          <div 
+            className="flex flex-wrap"
+            style={{ gap: SQUARE_GAP }}
+          >
+            {/* Type 1: Registered visitors (with email) - Green */}
+            {type1Visitors.map((visitor) => (
+              <div
+                key={visitor._id}
+                className="rounded-sm transition-all hover:scale-110"
+                style={{
+                  width: SQUARE_SIZE,
+                  height: SQUARE_SIZE,
+                  backgroundColor: '#14b8a6',
+                  opacity: visitor.checkedIn ? 1 : 0.2,
+                }}
+                title={`Registered: ${visitor.email || 'N/A'} - ${visitor.checkedIn ? 'Checked In' : 'Not Checked In'}`}
+              />
+            ))}
+            
+            {/* Type 2: Guest mode visitors - Blue */}
+            {type2Visitors.map((visitor) => (
+              <div
+                key={visitor._id}
+                className="rounded-sm transition-all hover:scale-110"
+                style={{
+                  width: SQUARE_SIZE,
+                  height: SQUARE_SIZE,
+                  backgroundColor: '#a855f7',
+                  opacity: visitor.checkedIn ? 1 : 0.2,
+                }}
+                title={`Guest Mode: ${visitor.barcode} - ${visitor.checkedIn ? 'Checked In' : 'Not Checked In'}`}
+              />
+            ))}
+            
+            {/* Type 3: Imaginary/Expected guests - Gray */}
+            {Array.from({ length: type3Count }).map((_, index) => (
+              <div
+                key={`expected-${index}`}
+                className="rounded-sm"
+                style={{
+                  width: SQUARE_SIZE,
+                  height: SQUARE_SIZE,
+                  backgroundColor: '#6b7280',
+                }}
+                title="Expected (Not Registered)"
+              />
+            ))}
           </div>
         </div>
       </div>

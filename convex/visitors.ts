@@ -198,3 +198,11 @@ export const getOrCreateVisitorAndCheckin = mutation({
     return { magicToken };
   }
 });
+
+// Query to get all visitors
+export const getAllVisitors = query({
+  handler: async (ctx) => {
+    const visitors = await ctx.db.query("visitors").collect();
+    return visitors;
+  }
+});

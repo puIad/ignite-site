@@ -76,8 +76,8 @@ function Page() {
 
   if (!visitors) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
-        <div className="text-xl font-semibold text-white">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-xl font-semibold text-gray-900">Loading...</div>
       </div>
     )
   }
@@ -95,12 +95,12 @@ function Page() {
   const totalSquares = NUMBER_OF_VISITORS
 
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gray-900">
+    <div className="min-h-screen p-4 md:p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-6">Check-in Stats</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">Check-in Stats</h1>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-6 mb-8 p-4 bg-gray-800 rounded-xl">
+        <div className="flex flex-wrap gap-6 mb-8 p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
           <div className="flex items-center gap-3">
             <div 
               className="rounded-sm" 
@@ -110,7 +110,7 @@ function Page() {
                 backgroundColor: '#14b8a6' 
               }} 
             />
-            <span className="text-white text-sm">
+            <span className="text-gray-700 text-sm">
               Registered (Email) - {type1Visitors.length} ({type1Visitors.filter(v => v.checkedIn).length} checked in)
             </span>
           </div>
@@ -123,7 +123,7 @@ function Page() {
                 backgroundColor: '#a855f7' 
               }} 
             />
-            <span className="text-white text-sm">
+            <span className="text-gray-700 text-sm">
               Guest Mode - {type2Visitors.length} ({type2Visitors.filter(v => v.checkedIn).length} checked in)
             </span>
           </div>
@@ -136,7 +136,7 @@ function Page() {
                 backgroundColor: '#6b7280' 
               }} 
             />
-            <span className="text-white text-sm">
+            <span className="text-gray-700 text-sm">
               Expected (Not Registered) - {type3Count}
             </span>
           </div>
@@ -144,29 +144,29 @@ function Page() {
 
         {/* Stats Summary */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-white">{NUMBER_OF_VISITORS}</div>
-            <div className="text-gray-400 text-sm">Expected Total</div>
+          <div className="bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm">
+            <div className="text-3xl font-bold text-gray-900">{NUMBER_OF_VISITORS}</div>
+            <div className="text-gray-500 text-sm">Expected Total</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-teal-400">{type1Visitors.length}</div>
-            <div className="text-gray-400 text-sm">Registered (Email)</div>
+          <div className="bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm">
+            <div className="text-3xl font-bold text-teal-600">{type1Visitors.length}</div>
+            <div className="text-gray-500 text-sm">Registered (Email)</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-purple-400">{type2Visitors.length}</div>
-            <div className="text-gray-400 text-sm">Guest Mode</div>
+          <div className="bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm">
+            <div className="text-3xl font-bold text-purple-600">{type2Visitors.length}</div>
+            <div className="text-gray-500 text-sm">Guest Mode</div>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-yellow-400">
+          <div className="bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm">
+            <div className="text-3xl font-bold text-yellow-600">
               {type1Visitors.filter(v => v.checkedIn).length + type2Visitors.filter(v => v.checkedIn).length}
             </div>
-            <div className="text-gray-400 text-sm">Total Checked In</div>
+            <div className="text-gray-500 text-sm">Total Checked In</div>
           </div>
         </div>
 
         {/* Grid of Squares */}
-        <div className="bg-gray-800 rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Visitor Grid</h2>
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Visitor Grid</h2>
           <div 
             className="flex flex-wrap"
             style={{ gap: SQUARE_GAP }}

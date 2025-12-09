@@ -9,7 +9,8 @@ const schema = defineSchema({
     })),
     status: v.union(v.literal('SPEAKNT'), v.literal('SPEAKING'), v.literal('SPEAKED')),
     votingStatus: v.optional(v.union(v.literal('OFF'), v.literal('SOON'), v.literal('ON'))),
-    votingStartTime: v.optional(v.string())
+    votingStartTime: v.optional(v.string()),
+    order: v.number()
   }),
   votes: defineTable({
     speakerId: v.id('speakers'),

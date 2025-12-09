@@ -79,7 +79,7 @@ function RouteComponent() {
       <div className='z-20 flex-col justify-center items-center '>
         <h1 className="text-[25px] uppercase text-center font-bold mb-8 mt-4 font-display text-white">Rate The Speakers</h1>
         <div className="flex flex-col md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-8 w-full max-w-4xl">
-          {speakers.map((speaker) => (
+          {speakers.sort((a, b) => b.order - a.order).map((speaker) => (
             <>
               <div className='w-[90%] h-px bg-white' />
               <motion.div

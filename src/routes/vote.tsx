@@ -21,21 +21,21 @@ function RouteComponent() {
 
   const [selectedSpeaker, setSelectedSpeaker] = useState<{ id: Id<"speakers">, name: string } | null>(null)
 
-  // useEffect(() => {
-  //   async function foo() {
-  //     const token = localStorage.getItem('token')
-  //     if (token) {
-  //       try {
-  //         const { visitorId } = await authenticate({ token })
-  //         if (visitorId) {
-  //           setVisitorId(visitorId)
-  //           setIsAuthenticated(true)
-  //         }
-  //       } catch (e) { }
-  //     }
-  //   }
-  //   foo()
-  // }, [])
+  useEffect(() => {
+    async function foo() {
+      const token = localStorage.getItem('token')
+      if (token) {
+        try {
+          const { visitorId } = await authenticate({ token })
+          if (visitorId) {
+            setVisitorId(visitorId)
+            setIsAuthenticated(true)
+          }
+        } catch (e) { }
+      }
+    }
+    foo()
+  }, [])
 
   if (!speakers) {
     return <p>loading</p>

@@ -241,9 +241,9 @@ function VotePopup({ speakerId, speakerName, onClose, onVote }: { speakerId: Id<
   )
 }
 
-function SpeakerAction({ startTime, visitorId, speakerId, speakerStatus, votingStatus }: { startTime: string | undefined, speakerId: string, visitorId: string, speakerStatus: string, votingStatus: string }) {
-  const prevVote = useQuery(api.voting.getVote, { visitorId, speakerId })
-  const prevRating = prevVote?.rating ?? (Number(localStorage.getItem(speakerId)) ?? null)
+function SpeakerAction({ startTime, visitorId, speakerId, speakerStatus, votingStatus }: { startTime: string | undefined, speakerId: string, visitorId: string | undefined | null, speakerStatus: string, votingStatus: string }) {
+  const prevVote = useQuery(api.voting.getVote, { visitorId: visitorId ?? "", speakerId: speakerId })
+  const prevRating = prevVote?.rating ?? (Number(localStorage.getItem(speakerId ?? "")) ?? null)
   if (!startTime) startTime = String(Date.now())
   const countDownValue = countDown({ startTime, timeoutValue: 60 })
   if (speakerStatus === "SPEAKNT") {
